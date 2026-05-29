@@ -18,7 +18,9 @@ STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 
 stripe.api_key = STRIPE_SECRET_KEY
 
-def search_places(query, city, max_results=200):
+used_sessions = set()
+
+def search_places(query, city, max_results=100):
     url = "https://places.googleapis.com/v1/places:searchText"
     headers = {
         "Content-Type": "application/json",
@@ -57,6 +59,9 @@ def scrape():
     if not session_id or not business_type or not city:
         return jsonify({"error": "Missing required fields"}), 400
 
+    if session_id in used_sessions:
+        return jsonify({"error": "This session has already been used. Please purchase a new search."}), 403
+
     try:
         session = stripe.checkout.Session.retrieve(session_id)
         if session.payment_status != "paid":
@@ -64,10 +69,13 @@ def scrape():
     except Exception as e:
         return jsonify({"error": "Invalid session"}), 400
 
+    used_sessions.add(session_id)
+
     try:
         places = search_places(business_type, city)
 
         if not places:
+            used_sessions.discard(session_id)
             return jsonify({"error": "No results found for that search"}), 404
 
         output = io.StringIO()
@@ -92,41 +100,7 @@ def scrape():
         )
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@app.route("/api/create-checkout", methods=["POST"])
-def create_checkout():
-    data = request.json
-    business_type = data.get("business_type", "").strip()
-    city = data.get("city", "").strip()
-
-    if not business_type or not city:
-        return jsonify({"error": "Missing business type or city"}), 400
-
-    try:
-        session = stripe.checkout.Session.create(
-            payment_method_types=["card"],
-            line_items=[{
-                "price_data": {
-                    "currency": "usd",
-                    "product_data": {
-                        "name": f"MapZap: {business_type} leads in {city}",
-                        "description": f"Up to 200 local business leads — {business_type} in {city}"
-                    },
-                    "unit_amount": 4900,
-                },
-                "quantity": 1,
-            }],
-            mode="payment",
-            success_url=f"https://mapzap.org/success.html?session_id={{CHECKOUT_SESSION_ID}}&type={business_type}&city={city}",
-            cancel_url="https://mapzap.org/#pricing",
-            metadata={
-                "business_type": business_type,
-                "city": city
-            }
-        )
-        return jsonify({"url": session.url})
-    except Exception as e:
+        used_sessions.discard(session_id)
         return jsonify({"error": str(e)}), 500
 
 @app.route("/health", methods=["GET"])
