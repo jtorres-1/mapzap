@@ -20,15 +20,11 @@
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;overflow-x:hidden}
-
-/* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;background:rgba(8,10,15,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
 .nav-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:24px;letter-spacing:-0.5px}
 .nav-logo span{color:var(--accent)}
 .nav-cta{background:var(--accent);color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:15px;letter-spacing:1px;padding:10px 24px;border:none;cursor:pointer;text-decoration:none;transition:opacity 0.2s}
 .nav-cta:hover{opacity:0.85}
-
-/* HERO */
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,229,255,0.06) 0%,transparent 70%)}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:0.3}
@@ -50,20 +46,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:fl
 .hero-cta:hover{transform:translateY(-2px);opacity:0.9}
 .hero-price{margin-top:16px;font-size:15px;color:var(--muted)}
 .hero-price strong{color:var(--accent2)}
-
-/* TICKER */
 .ticker{background:var(--accent);padding:12px 0;overflow:hidden;white-space:nowrap}
 .ticker-inner{display:inline-flex;gap:48px;animation:ticker 20s linear infinite}
 .ticker-item{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:15px;letter-spacing:2px;color:#000;text-transform:uppercase}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-
-/* STATS */
 .stats{padding:80px 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);max-width:1200px;margin:0 auto}
 .stat{background:var(--bg);padding:40px 32px;text-align:center}
 .stat-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:56px;color:var(--accent);line-height:1}
 .stat-label{font-size:14px;color:var(--muted);margin-top:8px;text-transform:uppercase;letter-spacing:1px}
-
-/* WHO */
 .section{padding:100px 40px;max-width:1200px;margin:0 auto}
 .section-label{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
 .section-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(40px,6vw,72px);line-height:0.95;letter-spacing:-1px;margin-bottom:48px}
@@ -73,30 +63,22 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:fl
 .who-icon{font-size:28px;margin-bottom:16px}
 .who-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;margin-bottom:8px}
 .who-desc{font-size:14px;color:var(--muted);line-height:1.6}
-
-/* HOW */
 .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
 .how-step{position:relative;padding:40px 32px;background:var(--bg2);border:1px solid var(--border)}
 .step-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:72px;color:rgba(0,229,255,0.08);position:absolute;top:16px;right:20px;line-height:1}
 .step-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:24px;margin-bottom:12px}
 .step-desc{font-size:14px;color:var(--muted);line-height:1.7}
-
-/* USE CASES */
 .use-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--border)}
 .use-card{background:var(--bg2);padding:32px 40px}
 .use-query{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;color:var(--accent);margin-bottom:8px}
 .use-desc{font-size:14px;color:var(--muted);line-height:1.6}
 .use-result{margin-top:12px;font-size:13px;color:var(--text);background:var(--bg3);padding:8px 12px;border-left:3px solid var(--accent)}
-
-/* TESTIMONIALS */
 .test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border)}
 .test-card{background:var(--bg2);padding:32px}
 .test-stars{color:var(--accent2);font-size:14px;margin-bottom:16px;letter-spacing:2px}
 .test-quote{font-size:15px;line-height:1.7;color:#C0CADF;margin-bottom:24px;font-style:italic}
 .test-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px}
 .test-role{font-size:12px;color:var(--muted);margin-top:2px}
-
-/* PRICING */
 .pricing-box{max-width:600px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);padding:60px;text-align:center;position:relative;overflow:hidden}
 .pricing-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent)}
 .pricing-badge{display:inline-block;background:rgba(255,214,0,0.1);border:1px solid rgba(255,214,0,0.3);color:var(--accent2);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;margin-bottom:24px}
@@ -110,8 +92,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:fl
 .buy-btn{display:block;width:100%;background:var(--accent);color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;letter-spacing:2px;padding:22px;text-decoration:none;transition:opacity 0.2s;border:none;cursor:pointer}
 .buy-btn:hover{opacity:0.85}
 .price-note{margin-top:16px;font-size:13px;color:var(--muted)}
-
-/* FAQ */
 .faq-list{max-width:800px;margin:0 auto}
 .faq-item{border-bottom:1px solid var(--border);padding:24px 0}
 .faq-q{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
@@ -119,12 +99,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:fl
 .faq-item.open .faq-q::after{transform:rotate(45deg)}
 .faq-a{font-size:15px;color:var(--muted);line-height:1.7;max-height:0;overflow:hidden;transition:max-height 0.3s,padding 0.3s}
 .faq-item.open .faq-a{max-height:200px;padding-top:16px}
-
-/* FOOTER */
 footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px;text-align:center;font-size:14px;color:var(--muted)}
 footer strong{color:var(--text)}
-
-/* RESPONSIVE */
 @media(max-width:768px){
 .stats{grid-template-columns:repeat(2,1fr)}
 .who-grid,.how-grid,.test-grid,.use-grid{grid-template-columns:1fr}
@@ -136,19 +112,17 @@ nav{padding:16px 20px}
 </style>
 </head>
 <body>
-
 <nav>
   <div class="nav-logo">Map<span>Zap</span></div>
   <a href="#pricing" class="nav-cta">GET LEADS — $49</a>
 </nav>
-
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
   <div class="hero-content">
     <div class="hero-badge">⚡ Powered by Google Maps</div>
     <h1>500 Business<br>Leads in <span>60 Seconds</span></h1>
-    <p class="hero-sub">Type a business type and city. Get a <strong>ready-to-use CSV</strong> with names, phone numbers, emails, and addresses. No monthly fees. No subscriptions.</p>
+    <p class="hero-sub">Type a business type and city. Get a <strong>ready-to-use CSV</strong> with names, phone numbers, addresses, and websites. No monthly fees. No subscriptions.</p>
     <div class="hero-demo">
       <div class="demo-label">Live example</div>
       <div class="demo-terminal">▶ "restaurants, Miami FL" <span class="cursor">|</span></div>
@@ -156,14 +130,13 @@ nav{padding:16px 20px}
         <div class="demo-row"><span>Business</span>Casa Juancho Miami</div>
         <div class="demo-row"><span>Phone</span>(305) 642-2452</div>
         <div class="demo-row"><span>Address</span>2436 SW 8th St, Miami</div>
-        <div class="demo-row"><span>Email</span>info@casajuancho.com</div>
+        <div class="demo-row"><span>Website</span>casajuancho.com</div>
       </div>
     </div>
-    <a href="#pricing" class="hero-cta">GET 500 LEADS NOW — $49</a>
+    <a href="#pricing" class="hero-cta">GET LEADS NOW — $49</a>
     <p class="hero-price">One-time payment. <strong>No subscription.</strong> Instant CSV download.</p>
   </div>
 </section>
-
 <div class="ticker">
   <div class="ticker-inner">
     <span class="ticker-item">⚡ Restaurants</span>
@@ -188,29 +161,27 @@ nav{padding:16px 20px}
     <span class="ticker-item">⚡ Retail Shops</span>
   </div>
 </div>
-
 <div style="background:var(--bg);padding:80px 40px">
   <div class="stats">
-    <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Leads per search</div></div>
+    <div class="stat"><div class="stat-num">200+</div><div class="stat-label">Leads per search</div></div>
     <div class="stat"><div class="stat-num">60s</div><div class="stat-label">Delivery time</div></div>
     <div class="stat"><div class="stat-num">$0</div><div class="stat-label">Monthly fee</div></div>
     <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Business types</div></div>
   </div>
 </div>
-
 <section class="section">
   <div class="section-label">Who it's for</div>
   <div class="section-title">Built for people<br>who need leads <em style="color:var(--accent);font-style:normal">now.</em></div>
   <div class="who-grid">
     <div class="who-card">
-      <div class="who-icon">📧</div>
-      <div class="who-title">Email Marketers</div>
-      <div class="who-desc">Build targeted lists for cold email campaigns in any niche, any city. Stop paying $500/mo for Apollo.</div>
+      <div class="who-icon">📞</div>
+      <div class="who-title">Cold Callers</div>
+      <div class="who-desc">Build targeted call lists for any niche, any city. Get direct phone numbers for every business in your market instantly.</div>
     </div>
     <div class="who-card">
       <div class="who-icon">🏢</div>
       <div class="who-title">Sales Agencies</div>
-      <div class="who-desc">Pull fresh local business leads for clients on demand. Deliver more value, faster, at zero cost.</div>
+      <div class="who-desc">Pull fresh local business leads for clients on demand. Deliver more value, faster, at zero ongoing cost.</div>
     </div>
     <div class="who-card">
       <div class="who-icon">💼</div>
@@ -234,7 +205,6 @@ nav{padding:16px 20px}
     </div>
   </div>
 </section>
-
 <section style="background:var(--bg2);padding:100px 40px">
   <div style="max-width:1200px;margin:0 auto">
     <div class="section-label">How it works</div>
@@ -248,17 +218,16 @@ nav{padding:16px 20px}
       <div class="how-step">
         <div class="step-num">02</div>
         <div class="step-title">Type your search</div>
-        <div class="step-desc">Enter any business type — "dental offices," "gyms," "law firms" — and any US city. Hit search. Takes 30 seconds.</div>
+        <div class="step-desc">Enter any business type — "dental offices," "gyms," "law firms" — and any US city. Hit search. Takes 60 seconds.</div>
       </div>
       <div class="how-step">
         <div class="step-num">03</div>
         <div class="step-title">Download your CSV</div>
-        <div class="step-desc">Get up to 500 leads with business name, address, phone number, website, and email. Ready to import anywhere.</div>
+        <div class="step-desc">Get up to 200 leads with business name, address, phone number, and website. Ready to import anywhere.</div>
       </div>
     </div>
   </div>
 </section>
-
 <section class="section">
   <div class="section-label">Use cases</div>
   <div class="section-title">What people<br>actually search for.</div>
@@ -266,26 +235,25 @@ nav{padding:16px 20px}
     <div class="use-card">
       <div class="use-query">▶ "nail salons, Los Angeles CA"</div>
       <div class="use-desc">Perfect for beauty product reps, booking software salespeople, or anyone targeting the LA beauty market.</div>
-      <div class="use-result">Returns 500 nail salons with phones, emails, addresses</div>
+      <div class="use-result">Returns nail salons with phones, addresses, websites</div>
     </div>
     <div class="use-card">
       <div class="use-query">▶ "dentists, Austin TX"</div>
       <div class="use-desc">Dental supply companies, practice management software, or any B2B targeting dental offices in Austin.</div>
-      <div class="use-result">Returns 500 dental offices with contact info</div>
+      <div class="use-result">Returns dental offices with direct contact info</div>
     </div>
     <div class="use-card">
       <div class="use-query">▶ "restaurants, Chicago IL"</div>
       <div class="use-desc">Food distributors, POS system vendors, delivery platforms, or anyone targeting Chicago's restaurant scene.</div>
-      <div class="use-result">Returns 500 restaurants with owner contact info</div>
+      <div class="use-result">Returns restaurants with phone numbers and addresses</div>
     </div>
     <div class="use-card">
       <div class="use-query">▶ "law firms, New York NY"</div>
       <div class="use-desc">Legal tech companies, office supply vendors, or any service targeting NYC's massive legal market.</div>
-      <div class="use-result">Returns 500 law firms with direct contact info</div>
+      <div class="use-result">Returns law firms with direct contact info</div>
     </div>
   </div>
 </section>
-
 <section style="background:var(--bg2);padding:100px 40px">
   <div style="max-width:1200px;margin:0 auto">
     <div class="section-label">What people are saying</div>
@@ -293,13 +261,13 @@ nav{padding:16px 20px}
     <div class="test-grid">
       <div class="test-card">
         <div class="test-stars">★★★★★</div>
-        <div class="test-quote">"I was paying $400/mo for Apollo. MapZap gets me the same leads for $49 one-time. I feel like an idiot for not finding this sooner."</div>
+        <div class="test-quote">"I was paying $400/mo for Apollo. MapZap gets me fresh local leads for $49 one-time. I feel like an idiot for not finding this sooner."</div>
         <div class="test-name">Ryan Kowalski</div>
-        <div class="test-role">Cold Email Agency Owner, Chicago</div>
+        <div class="test-role">Cold Outreach Agency Owner, Chicago</div>
       </div>
       <div class="test-card">
         <div class="test-stars">★★★★★</div>
-        <div class="test-quote">"Pulled 500 restaurant leads in Miami in under a minute. Sent 200 emails that afternoon. Closed 3 clients that week. Best $49 I've ever spent."</div>
+        <div class="test-quote">"Pulled a list of restaurant leads in Miami in under a minute. Called 50 of them that afternoon. Closed 3 clients that week. Best $49 I've ever spent."</div>
         <div class="test-name">Darius Fleming</div>
         <div class="test-role">Freelance Marketing Consultant, Miami</div>
       </div>
@@ -312,7 +280,6 @@ nav{padding:16px 20px}
     </div>
   </div>
 </section>
-
 <section class="section" id="pricing">
   <div class="section-label">Pricing</div>
   <div class="section-title" style="text-align:center;margin-bottom:48px">Simple.<br>One price.</div>
@@ -322,19 +289,18 @@ nav{padding:16px 20px}
     <div class="price-period">per search — no subscription ever</div>
     <div class="price-desc">Everything you need to build a targeted lead list in 60 seconds.</div>
     <div class="price-features">
-      <div class="price-feature">Up to 500 verified business leads</div>
-      <div class="price-feature">Business name, phone, email, address, website</div>
+      <div class="price-feature">Up to 200 local business leads</div>
+      <div class="price-feature">Business name, phone, address, website</div>
       <div class="price-feature">Any business type, any US city</div>
       <div class="price-feature">Instant CSV download</div>
-      <div class="price-feature">Powered by Google Maps data</div>
+      <div class="price-feature">Powered by live Google Maps data</div>
       <div class="price-feature">No account required</div>
       <div class="price-feature">No monthly fees, ever</div>
     </div>
-    <a href="https://buy.stripe.com/6oUdR9aHF9qIdYSbHU2Ry09" class="buy-btn">GET 500 LEADS NOW — $49 →</a>
+    <a href="https://buy.stripe.com/6oUdR9aHF9qIdYSbHU2Ry09" class="buy-btn">GET LEADS NOW — $49 →</a>
     <p class="price-note">Secure payment via Stripe. Instant access after payment.</p>
   </div>
 </section>
-
 <section style="background:var(--bg2);padding:100px 40px">
   <div style="max-width:1200px;margin:0 auto">
     <div class="section-label">FAQ</div>
@@ -342,11 +308,11 @@ nav{padding:16px 20px}
     <div class="faq-list">
       <div class="faq-item">
         <div class="faq-q">How many leads do I actually get?</div>
-        <div class="faq-a">Up to 500 leads per search depending on how many businesses exist in that city and category. Major cities with common business types typically return the full 500.</div>
+        <div class="faq-a">Up to 200 leads per search depending on how many businesses exist in that city and category. Major cities with common business types return the most results.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">What data is included in the CSV?</div>
-        <div class="faq-a">Business name, phone number, email address, full street address, website URL, city, and business type. Ready to import into any CRM or email tool.</div>
+        <div class="faq-a">Business name, phone number, full street address, and website URL. Sourced live from Google Maps. Ready to import into any CRM or dialer.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Is the data fresh?</div>
@@ -354,11 +320,11 @@ nav{padding:16px 20px}
       </div>
       <div class="faq-item">
         <div class="faq-q">Do I need to create an account?</div>
-        <div class="faq-a">No. Pay via Stripe, get instant access to the search tool, download your CSV. That's it. No login, no account, no friction.</div>
+        <div class="faq-a">No. Pay via Stripe, get instant access to the search tool, download your CSV. No login, no account, no friction.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">What if I need leads for multiple cities?</div>
-        <div class="faq-a">Each $49 payment gives you one search. Run as many searches as you need — each one is $49 with no limits on how many you can do.</div>
+        <div class="faq-a">Each $49 payment gives you one search. Run as many searches as you need — each one is $49 with no limits.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Is there a subscription or recurring charge?</div>
@@ -367,21 +333,18 @@ nav{padding:16px 20px}
     </div>
   </div>
 </section>
-
 <section style="padding:100px 40px;text-align:center;position:relative;overflow:hidden">
   <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(0,229,255,0.05) 0%,transparent 70%)"></div>
   <div style="position:relative;max-width:700px;margin:0 auto">
     <div class="section-label" style="justify-content:center;display:flex">Stop wasting time</div>
-    <div class="section-title" style="font-size:clamp(48px,8vw,96px)">Your next 500<br>leads are <span style="color:var(--accent)">60 seconds</span><br>away.</div>
+    <div class="section-title" style="font-size:clamp(48px,8vw,96px)">Your next 200<br>leads are <span style="color:var(--accent)">60 seconds</span><br>away.</div>
     <a href="#pricing" class="hero-cta" style="margin-top:40px;display:inline-block">GET STARTED — $49</a>
   </div>
 </section>
-
 <footer>
   <strong>MapZap</strong> — Local business leads, instant CSV delivery.<br>
   <span style="margin-top:8px;display:block">Questions? Email <a href="mailto:hello@mapzap.org" style="color:var(--accent)">hello@mapzap.org</a></span>
 </footer>
-
 <script>
 document.querySelectorAll('.faq-q').forEach(q=>{
   q.addEventListener('click',()=>{
