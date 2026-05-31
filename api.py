@@ -19,7 +19,24 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 stripe.api_key = STRIPE_SECRET_KEY
 
-used_sessions = set()
+import json
+
+SESSIONS_FILE = "/root/mapzap/used_sessions.json"
+
+def load_sessions():
+    try:
+        with open(SESSIONS_FILE) as f:
+            return set(json.load(f))
+    except:
+        return set()
+
+def save_session(sid):
+    sessions = load_sessions()
+    sessions.add(sid)
+    with open(SESSIONS_FILE, "w") as f:
+        json.dump(list(sessions), f)
+
+used_sessions = load_sessions()
 
 # =========================
 # EMAIL FINDER
@@ -178,12 +195,12 @@ def scrape():
     except Exception:
         return jsonify({"error": "Invalid session"}), 400
 
-    used_sessions.add(session_id)
+    save_session(session_id)
 
     try:
         places = search_places(business_type, city)
         if not places:
-            used_sessions.discard(session_id)
+            pass  # allow retry on error
             return jsonify({"error": "No results found for that search"}), 404
 
         output = io.StringIO()
@@ -218,7 +235,7 @@ def scrape():
             download_name=filename
         )
     except Exception as e:
-        used_sessions.discard(session_id)
+        pass  # allow retry on error
         return jsonify({"error": str(e)}), 500
 
 @app.route("/health", methods=["GET"])
