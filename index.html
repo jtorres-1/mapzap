@@ -79,19 +79,30 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:fl
 .test-quote{font-size:15px;line-height:1.7;color:#C0CADF;margin-bottom:24px;font-style:italic}
 .test-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px}
 .test-role{font-size:12px;color:var(--muted);margin-top:2px}
-.pricing-box{max-width:600px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);padding:60px;text-align:center;position:relative;overflow:hidden}
-.pricing-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent)}
-.pricing-badge{display:inline-block;background:rgba(255,214,0,0.1);border:1px solid rgba(255,214,0,0.3);color:var(--accent2);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;margin-bottom:24px}
-.price-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:96px;line-height:1;color:var(--accent)}
-.price-period{font-size:18px;color:var(--muted)}
-.price-desc{font-size:16px;color:#A0AABF;margin:16px 0 32px}
-.price-features{text-align:left;margin-bottom:40px}
-.price-feature{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);font-size:15px}
+
+/* PRICING — two cards */
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);max-width:900px;margin:0 auto}
+.pricing-card{background:var(--bg2);padding:48px 40px;position:relative;overflow:hidden}
+.pricing-card.pro{background:var(--bg3)}
+.pricing-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--border)}
+.pricing-card.pro::before{background:var(--accent2)}
+.pricing-badge{display:inline-block;background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.2);color:var(--accent);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;margin-bottom:20px}
+.pricing-badge.pro-badge{background:rgba(255,214,0,0.1);border-color:rgba(255,214,0,0.3);color:var(--accent2)}
+.price-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:80px;line-height:1;color:var(--accent)}
+.pricing-card.pro .price-num{color:var(--accent2)}
+.price-period{font-size:15px;color:var(--muted);margin-bottom:8px}
+.price-desc{font-size:14px;color:#A0AABF;margin-bottom:28px;line-height:1.5}
+.price-features{margin-bottom:32px}
+.price-feature{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;line-height:1.4}
 .price-feature:last-child{border-bottom:none}
-.price-feature::before{content:'✓';color:var(--accent);font-weight:700;font-size:16px;flex-shrink:0}
-.buy-btn{display:block;width:100%;background:var(--accent);color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;letter-spacing:2px;padding:22px;text-decoration:none;transition:opacity 0.2s;border:none;cursor:pointer}
+.price-feature::before{content:'✓';color:var(--accent);font-weight:700;font-size:14px;flex-shrink:0;margin-top:1px}
+.pricing-card.pro .price-feature::before{color:var(--accent2)}
+.buy-btn{display:block;width:100%;background:var(--accent);color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;letter-spacing:2px;padding:20px;text-decoration:none;text-align:center;transition:opacity 0.2s;border:none;cursor:pointer}
 .buy-btn:hover{opacity:0.85}
-.price-note{margin-top:16px;font-size:13px;color:var(--muted)}
+.buy-btn.pro-btn{background:var(--accent2)}
+.price-note{margin-top:12px;font-size:12px;color:var(--muted);text-align:center}
+.email-note{font-size:12px;color:var(--muted);margin-top:8px;font-style:italic}
+
 .faq-list{max-width:800px;margin:0 auto}
 .faq-item{border-bottom:1px solid var(--border);padding:24px 0}
 .faq-q{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
@@ -104,10 +115,11 @@ footer strong{color:var(--text)}
 @media(max-width:768px){
 .stats{grid-template-columns:repeat(2,1fr)}
 .who-grid,.how-grid,.test-grid,.use-grid{grid-template-columns:1fr}
+.pricing-grid{grid-template-columns:1fr}
 nav{padding:16px 20px}
 .section{padding:60px 20px}
-.pricing-box{padding:40px 24px}
-.price-num{font-size:72px}
+.pricing-card{padding:36px 24px}
+.price-num{font-size:64px}
 }
 </style>
 </head>
@@ -212,7 +224,7 @@ nav{padding:16px 20px}
     <div class="how-grid">
       <div class="how-step">
         <div class="step-num">01</div>
-        <div class="step-title">Pay once — $49</div>
+        <div class="step-title">Pay once</div>
         <div class="step-desc">One-time payment via Stripe. No account required. No subscription. No hidden fees. You pay, you get access immediately.</div>
       </div>
       <div class="how-step">
@@ -282,23 +294,44 @@ nav{padding:16px 20px}
 </section>
 <section class="section" id="pricing">
   <div class="section-label">Pricing</div>
-  <div class="section-title" style="text-align:center;margin-bottom:48px">Simple.<br>One price.</div>
-  <div class="pricing-box">
-    <div class="pricing-badge">ONE-TIME PAYMENT</div>
-    <div class="price-num">$49</div>
-    <div class="price-period">per search — no subscription ever</div>
-    <div class="price-desc">Everything you need to build a targeted lead list in 60 seconds.</div>
-    <div class="price-features">
-      <div class="price-feature">Up to 100 local business leads</div>
-      <div class="price-feature">Business name, phone, address, website</div>
-      <div class="price-feature">Any business type, any US city</div>
-      <div class="price-feature">Instant CSV download</div>
-      <div class="price-feature">Powered by live Google Maps data</div>
-      <div class="price-feature">No account required</div>
-      <div class="price-feature">No monthly fees, ever</div>
+  <div class="section-title" style="text-align:center;margin-bottom:48px">Two options.<br>Zero subscriptions.</div>
+  <div class="pricing-grid">
+    <!-- Basic $49 -->
+    <div class="pricing-card">
+      <div class="pricing-badge">STARTER</div>
+      <div class="price-num">$49</div>
+      <div class="price-period">one-time per search</div>
+      <div class="price-desc">Everything you need to build a targeted lead list fast.</div>
+      <div class="price-features">
+        <div class="price-feature">Up to 100 local business leads</div>
+        <div class="price-feature">Business name, phone, address, website</div>
+        <div class="price-feature">Any business type, any US city</div>
+        <div class="price-feature">Instant CSV download</div>
+        <div class="price-feature">Powered by live Google Maps data</div>
+        <div class="price-feature">No account required</div>
+        <div class="price-feature">No monthly fees, ever</div>
+      </div>
+      <a href="https://buy.stripe.com/6oUdR9aHF9qIdYSbHU2Ry09" class="buy-btn">GET LEADS — $49 →</a>
+      <p class="price-note">Secure payment via Stripe. Instant access.</p>
     </div>
-    <a href="https://buy.stripe.com/6oUdR9aHF9qIdYSbHU2Ry09" class="buy-btn">GET LEADS NOW — $49 →</a>
-    <p class="price-note">Secure payment via Stripe. Instant access after payment.</p>
+    <!-- Pro $99 -->
+    <div class="pricing-card pro">
+      <div class="pricing-badge pro-badge">PRO — WITH EMAILS</div>
+      <div class="price-num">$99</div>
+      <div class="price-period">one-time per search</div>
+      <div class="price-desc">Everything in Starter plus verified business emails for cold outreach.</div>
+      <div class="price-features">
+        <div class="price-feature">Up to 100 local business leads</div>
+        <div class="price-feature">Business name, phone, address, website</div>
+        <div class="price-feature">Any business type, any US city</div>
+        <div class="price-feature">Instant CSV download</div>
+        <div class="price-feature">Powered by live Google Maps data</div>
+        <div class="price-feature">No account required</div>
+        <div class="price-feature" style="color:var(--accent2);font-weight:600">✦ Business emails included where available</div>
+      </div>
+      <a href="https://buy.stripe.com/6oUaEX1758mE5smbHU2Ry0a" class="buy-btn pro-btn">GET LEADS + EMAILS — $99 →</a>
+      <p class="price-note">Emails found for ~30 to 40% of results on average.</p>
+    </div>
   </div>
 </section>
 <section style="background:var(--bg2);padding:100px 40px">
@@ -312,7 +345,11 @@ nav{padding:16px 20px}
       </div>
       <div class="faq-item">
         <div class="faq-q">What data is included in the CSV?</div>
-        <div class="faq-a">Business name, phone number, full street address, and website URL. Sourced live from Google Maps. Ready to import into any CRM or dialer.</div>
+        <div class="faq-a">Business name, phone number, full street address, and website URL. The Pro tier also includes business emails where they can be found. Sourced live from Google Maps.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How many emails will I get in the Pro tier?</div>
+        <div class="faq-a">Emails are found for roughly 30 to 40% of results on average. Every business that has a publicly listed email on their website will be included. You still get the full 100 leads regardless.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Is the data fresh?</div>
@@ -324,11 +361,11 @@ nav{padding:16px 20px}
       </div>
       <div class="faq-item">
         <div class="faq-q">What if I need leads for multiple cities?</div>
-        <div class="faq-a">Each $49 payment gives you one search. Run as many searches as you need — each one is $49 with no limits.</div>
+        <div class="faq-a">Each payment gives you one search. Run as many searches as you need — each one is a separate one-time payment.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Is there a subscription or recurring charge?</div>
-        <div class="faq-a">Never. $49 one-time per search. No subscription, no monthly fee, no surprises on your card statement.</div>
+        <div class="faq-a">Never. One-time per search. No subscription, no monthly fee, no surprises on your card statement.</div>
       </div>
     </div>
   </div>
