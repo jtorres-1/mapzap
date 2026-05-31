@@ -185,7 +185,7 @@ def scrape():
     if not session_id or not business_type or not city:
         return jsonify({"error": "Missing required fields"}), 400
 
-    if session_id in used_sessions:
+    if session_id in load_sessions():
         return jsonify({"error": "This session has already been used. Please purchase a new search."}), 403
 
     try:
