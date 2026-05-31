@@ -197,7 +197,7 @@ def scrape():
                 phone = p.get("nationalPhoneNumber", "")
                 website = p.get("websiteUri", "")
                 domain = get_domain(website)
-                email = scrape_emails(website, business_domain=domain)
+                email = scrape_emails(website, business_domain=domain) or "N/A"
                 writer.writerow([name, address, phone, website, email, city, business_type])
                 time.sleep(0.3)
         else:
