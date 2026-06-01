@@ -8,6 +8,7 @@ import re
 import time
 import stripe
 import dns.resolver
+import json
 from urllib.parse import urljoin, urlparse
 from dotenv import load_dotenv
 load_dotenv()
@@ -18,8 +19,6 @@ CORS(app)
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 stripe.api_key = STRIPE_SECRET_KEY
-
-import json
 
 SESSIONS_FILE = "/root/mapzap/used_sessions.json"
 
@@ -35,8 +34,6 @@ def save_session(sid):
     sessions.add(sid)
     with open(SESSIONS_FILE, "w") as f:
         json.dump(list(sessions), f)
-
-used_sessions = load_sessions()
 
 # =========================
 # EMAIL FINDER
@@ -174,6 +171,29 @@ def search_places(query, city, max_results=100):
 # =========================
 # ROUTES
 # =========================
+@app.route("/api/preview", methods=["POST"])
+def preview():
+    data = request.json
+    business_type = data.get("business_type", "").strip()
+    city = data.get("city", "").strip()
+    if not business_type or not city:
+        return jsonify({"error": "Missing required fields"}), 400
+    try:
+        places = search_places(business_type, city, max_results=5)
+        if not places:
+            return jsonify({"error": "No results found for that search"}), 404
+        leads = []
+        for p in places:
+            leads.append({
+                "name": p.get("displayName", {}).get("text", ""),
+                "address": p.get("formattedAddress", ""),
+                "phone": p.get("nationalPhoneNumber", ""),
+                "website": p.get("websiteUri", "")
+            })
+        return jsonify({"leads": leads, "total": 100})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route("/api/scrape", methods=["POST"])
 def scrape():
     data = request.json
@@ -200,7 +220,6 @@ def scrape():
     try:
         places = search_places(business_type, city)
         if not places:
-            pass  # allow retry on error
             return jsonify({"error": "No results found for that search"}), 404
 
         output = io.StringIO()
@@ -235,7 +254,6 @@ def scrape():
             download_name=filename
         )
     except Exception as e:
-        pass  # allow retry on error
         return jsonify({"error": str(e)}), 500
 
 @app.route("/health", methods=["GET"])
