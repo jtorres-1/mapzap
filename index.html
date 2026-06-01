@@ -8,16 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
---bg:#080A0F;
---bg2:#0E1118;
---bg3:#141820;
---accent:#00E5FF;
---accent2:#FFD600;
---text:#F0F4FF;
---muted:#6B7A99;
---border:#1E2535;
-}
+:root{--bg:#080A0F;--bg2:#0E1118;--bg3:#141820;--accent:#00E5FF;--accent2:#FFD600;--text:#F0F4FF;--muted:#6B7A99;--border:#1E2535}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;overflow-x:hidden}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;background:rgba(8,10,15,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
@@ -28,24 +19,42 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:fl
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,229,255,0.06) 0%,transparent 70%)}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:0.3}
-.hero-content{position:relative;max-width:900px}
+.hero-content{position:relative;max-width:900px;width:100%}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.2);padding:8px 16px;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:32px}
-.hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(56px,10vw,120px);line-height:0.9;letter-spacing:-2px;margin-bottom:24px}
+.hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(48px,8vw,100px);line-height:0.9;letter-spacing:-2px;margin-bottom:24px}
 .hero h1 span{color:var(--accent)}
-.hero-sub{font-size:clamp(18px,2.5vw,22px);color:#A0AABF;line-height:1.5;max-width:600px;margin:0 auto 40px}
+.hero-sub{font-size:clamp(16px,2vw,20px);color:#A0AABF;line-height:1.5;max-width:600px;margin:0 auto 40px}
 .hero-sub strong{color:var(--text)}
-.hero-demo{background:var(--bg2);border:1px solid var(--border);padding:24px 32px;margin:0 auto 40px;max-width:580px;text-align:left}
-.demo-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
-.demo-terminal{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:600;color:var(--accent)}
-.demo-terminal .cursor{animation:blink 1s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-.demo-result{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.demo-row{background:var(--bg3);padding:8px 12px;font-size:13px;color:var(--text)}
-.demo-row span{color:var(--muted);display:block;font-size:11px;margin-bottom:2px}
-.hero-cta{display:inline-block;background:var(--accent);color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;letter-spacing:2px;padding:20px 48px;text-decoration:none;transition:transform 0.2s,opacity 0.2s;border:none;cursor:pointer}
-.hero-cta:hover{transform:translateY(-2px);opacity:0.9}
-.hero-price{margin-top:16px;font-size:15px;color:var(--muted)}
-.hero-price strong{color:var(--accent2)}
+.search-box{background:var(--bg2);border:1px solid var(--border);padding:32px;max-width:680px;margin:0 auto 24px;text-align:left}
+.search-box-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;display:block;text-align:center}
+.search-row{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:end}
+.input-group label{display:block;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.search-input{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:'Barlow',sans-serif;font-size:15px;padding:14px 16px;outline:none;transition:border-color 0.2s}
+.search-input:focus{border-color:var(--accent)}
+.search-input::placeholder{color:var(--muted)}
+.search-btn{background:var(--accent);color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:16px;letter-spacing:1.5px;padding:14px 28px;border:none;cursor:pointer;white-space:nowrap;transition:opacity 0.2s;height:50px}
+.search-btn:hover{opacity:0.85}
+.search-btn:disabled{opacity:0.5;cursor:not-allowed}
+.preview-section{display:none;max-width:680px;margin:0 auto}
+.preview-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.preview-label{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent)}
+.preview-count{font-size:13px;color:var(--muted)}
+.preview-table{width:100%;border-collapse:collapse;font-size:13px}
+.preview-table th{background:var(--bg3);color:var(--muted);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:10px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.preview-table td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top}
+.preview-table tr:last-child td{border-bottom:none}
+.preview-table td a{color:var(--accent);text-decoration:none;font-size:12px}
+.blur-row td{filter:blur(5px);user-select:none;pointer-events:none;opacity:0.4}
+.paywall{background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--accent);padding:32px;text-align:center;max-width:680px;margin:16px auto 0}
+.paywall-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:28px;margin-bottom:8px}
+.paywall-sub{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.6}
+.paywall-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.paywall-btn{display:block;padding:16px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:18px;letter-spacing:1.5px;text-decoration:none;text-align:center;transition:opacity 0.2s}
+.paywall-btn:hover{opacity:0.85}
+.paywall-btn.basic{background:var(--accent);color:#000}
+.paywall-btn.pro{background:var(--accent2);color:#000}
+.paywall-note{margin-top:12px;font-size:12px;color:var(--muted)}
+.status-msg{margin-top:12px;font-size:13px;text-align:center;color:var(--accent);display:none}
 .ticker{background:var(--accent);padding:12px 0;overflow:hidden;white-space:nowrap}
 .ticker-inner{display:inline-flex;gap:48px;animation:ticker 20s linear infinite}
 .ticker-item{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:15px;letter-spacing:2px;color:#000;text-transform:uppercase}
@@ -68,19 +77,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:fl
 .step-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:72px;color:rgba(0,229,255,0.08);position:absolute;top:16px;right:20px;line-height:1}
 .step-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:24px;margin-bottom:12px}
 .step-desc{font-size:14px;color:var(--muted);line-height:1.7}
-.use-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--border)}
-.use-card{background:var(--bg2);padding:32px 40px}
-.use-query{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;color:var(--accent);margin-bottom:8px}
-.use-desc{font-size:14px;color:var(--muted);line-height:1.6}
-.use-result{margin-top:12px;font-size:13px;color:var(--text);background:var(--bg3);padding:8px 12px;border-left:3px solid var(--accent)}
 .test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border)}
 .test-card{background:var(--bg2);padding:32px}
 .test-stars{color:var(--accent2);font-size:14px;margin-bottom:16px;letter-spacing:2px}
 .test-quote{font-size:15px;line-height:1.7;color:#C0CADF;margin-bottom:24px;font-style:italic}
 .test-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px}
 .test-role{font-size:12px;color:var(--muted);margin-top:2px}
-
-/* PRICING — two cards */
 .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);max-width:900px;margin:0 auto}
 .pricing-card{background:var(--bg2);padding:48px 40px;position:relative;overflow:hidden}
 .pricing-card.pro{background:var(--bg3)}
@@ -101,8 +103,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:fl
 .buy-btn:hover{opacity:0.85}
 .buy-btn.pro-btn{background:var(--accent2)}
 .price-note{margin-top:12px;font-size:12px;color:var(--muted);text-align:center}
-.email-note{font-size:12px;color:var(--muted);margin-top:8px;font-style:italic}
-
 .faq-list{max-width:800px;margin:0 auto}
 .faq-item{border-bottom:1px solid var(--border);padding:24px 0}
 .faq-q{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
@@ -112,21 +112,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:fl
 .faq-item.open .faq-a{max-height:200px;padding-top:16px}
 footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px;text-align:center;font-size:14px;color:var(--muted)}
 footer strong{color:var(--text)}
-@media(max-width:768px){
-.stats{grid-template-columns:repeat(2,1fr)}
-.who-grid,.how-grid,.test-grid,.use-grid{grid-template-columns:1fr}
-.pricing-grid{grid-template-columns:1fr}
-nav{padding:16px 20px}
-.section{padding:60px 20px}
-.pricing-card{padding:36px 24px}
-.price-num{font-size:64px}
-}
+@media(max-width:768px){.stats{grid-template-columns:repeat(2,1fr)}.who-grid,.how-grid,.test-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.search-row{grid-template-columns:1fr;gap:12px}.search-btn{width:100%;height:50px}.paywall-btns{grid-template-columns:1fr}nav{padding:16px 20px}.section{padding:60px 20px}.pricing-card{padding:36px 24px}}
 </style>
 </head>
 <body>
 <nav>
   <div class="nav-logo">Map<span>Zap</span></div>
-  <a href="https://buy.stripe.com/6oUdR9aHF9qIdYSbHU2Ry09" class="nav-cta">GET LEADS — $49</a>
+  <a href="#pricing" class="nav-cta">GET LEADS — $49</a>
 </nav>
 <section class="hero">
   <div class="hero-bg"></div>
@@ -134,43 +126,46 @@ nav{padding:16px 20px}
   <div class="hero-content">
     <div class="hero-badge">⚡ Powered by Google Maps</div>
     <h1>100 Business<br>Leads in <span>60 Seconds</span></h1>
-    <p class="hero-sub">Type a business type and city. Get a <strong>ready-to-use CSV</strong> with names, phone numbers, addresses, and websites. No monthly fees. No subscriptions.</p>
-    <div class="hero-demo">
-      <div class="demo-label">Live example</div>
-      <div class="demo-terminal">▶ "restaurants, Miami FL" <span class="cursor">|</span></div>
-      <div class="demo-result">
-        <div class="demo-row"><span>Business</span>Casa Juancho Miami</div>
-        <div class="demo-row"><span>Phone</span>(305) 642-2452</div>
-        <div class="demo-row"><span>Address</span>2436 SW 8th St, Miami</div>
-        <div class="demo-row"><span>Website</span>casajuancho.com</div>
+    <p class="hero-sub">Type a business type and city. See real leads instantly. Pay once to unlock the full CSV. <strong>No subscription. No monthly fees.</strong></p>
+    <div class="search-box">
+      <span class="search-box-label">Try it free — see 5 real leads from your market</span>
+      <div class="search-row">
+        <div class="input-group">
+          <label>Business Type</label>
+          <input type="text" id="bizType" class="search-input" placeholder="e.g. dentists, gyms, roofers" />
+        </div>
+        <div class="input-group">
+          <label>City & State</label>
+          <input type="text" id="bizCity" class="search-input" placeholder="e.g. Miami FL" />
+        </div>
+        <button class="search-btn" id="searchBtn" onclick="runPreview()">SEARCH →</button>
+      </div>
+      <div class="status-msg" id="statusMsg"></div>
+    </div>
+    <div class="preview-section" id="previewSection">
+      <div class="preview-header">
+        <span class="preview-label">⚡ Live Results</span>
+        <span class="preview-count" id="previewCount"></span>
+      </div>
+      <table class="preview-table">
+        <thead><tr><th>Business Name</th><th>Phone</th><th>Address</th><th>Website</th></tr></thead>
+        <tbody id="previewBody"></tbody>
+      </table>
+      <div class="paywall">
+        <div class="paywall-title">Unlock All 100 Leads</div>
+        <div class="paywall-sub">You just saw 5 of the 100 leads available for this search. Pay once to get the full CSV with every business name, phone number, address, and website — ready to import anywhere.</div>
+        <div class="paywall-btns">
+          <a href="https://buy.stripe.com/6oUdR9aHF9qIdYSbHU2Ry09" class="paywall-btn basic">GET 100 LEADS — $49</a>
+          <a href="https://buy.stripe.com/6oUaEX1758mE5smbHU2Ry0a" class="paywall-btn pro">+ EMAILS — $99</a>
+        </div>
+        <p class="paywall-note">One-time payment. Instant CSV download. No subscription ever.</p>
       </div>
     </div>
-    <a href="https://buy.stripe.com/6oUdR9aHF9qIdYSbHU2Ry09" class="hero-cta">GET LEADS NOW — $49</a>
-    <p class="hero-price">One-time payment. <strong>No subscription.</strong> Instant CSV download.</p>
   </div>
 </section>
 <div class="ticker">
   <div class="ticker-inner">
-    <span class="ticker-item">⚡ Restaurants</span>
-    <span class="ticker-item">⚡ Dental Offices</span>
-    <span class="ticker-item">⚡ Law Firms</span>
-    <span class="ticker-item">⚡ Gyms & Studios</span>
-    <span class="ticker-item">⚡ Auto Shops</span>
-    <span class="ticker-item">⚡ Salons & Spas</span>
-    <span class="ticker-item">⚡ Real Estate</span>
-    <span class="ticker-item">⚡ Contractors</span>
-    <span class="ticker-item">⚡ Medical Offices</span>
-    <span class="ticker-item">⚡ Retail Shops</span>
-    <span class="ticker-item">⚡ Restaurants</span>
-    <span class="ticker-item">⚡ Dental Offices</span>
-    <span class="ticker-item">⚡ Law Firms</span>
-    <span class="ticker-item">⚡ Gyms & Studios</span>
-    <span class="ticker-item">⚡ Auto Shops</span>
-    <span class="ticker-item">⚡ Salons & Spas</span>
-    <span class="ticker-item">⚡ Real Estate</span>
-    <span class="ticker-item">⚡ Contractors</span>
-    <span class="ticker-item">⚡ Medical Offices</span>
-    <span class="ticker-item">⚡ Retail Shops</span>
+    <span class="ticker-item">⚡ Restaurants</span><span class="ticker-item">⚡ Dental Offices</span><span class="ticker-item">⚡ Law Firms</span><span class="ticker-item">⚡ Gyms & Studios</span><span class="ticker-item">⚡ Auto Shops</span><span class="ticker-item">⚡ Salons & Spas</span><span class="ticker-item">⚡ Real Estate</span><span class="ticker-item">⚡ Contractors</span><span class="ticker-item">⚡ Medical Offices</span><span class="ticker-item">⚡ Retail Shops</span><span class="ticker-item">⚡ Restaurants</span><span class="ticker-item">⚡ Dental Offices</span><span class="ticker-item">⚡ Law Firms</span><span class="ticker-item">⚡ Gyms & Studios</span><span class="ticker-item">⚡ Auto Shops</span><span class="ticker-item">⚡ Salons & Spas</span><span class="ticker-item">⚡ Real Estate</span><span class="ticker-item">⚡ Contractors</span><span class="ticker-item">⚡ Medical Offices</span><span class="ticker-item">⚡ Retail Shops</span>
   </div>
 </div>
 <div style="background:var(--bg);padding:80px 40px">
@@ -185,36 +180,12 @@ nav{padding:16px 20px}
   <div class="section-label">Who it's for</div>
   <div class="section-title">Built for people<br>who need leads <em style="color:var(--accent);font-style:normal">now.</em></div>
   <div class="who-grid">
-    <div class="who-card">
-      <div class="who-icon">📞</div>
-      <div class="who-title">Cold Callers</div>
-      <div class="who-desc">Build targeted call lists for any niche, any city. Get direct phone numbers for every business in your market instantly.</div>
-    </div>
-    <div class="who-card">
-      <div class="who-icon">🏢</div>
-      <div class="who-title">Sales Agencies</div>
-      <div class="who-desc">Pull fresh local business leads for clients on demand. Deliver more value, faster, at zero ongoing cost.</div>
-    </div>
-    <div class="who-card">
-      <div class="who-icon">💼</div>
-      <div class="who-title">Freelancers</div>
-      <div class="who-desc">Find potential clients in your city instantly. Target exactly the type of business you want to work with.</div>
-    </div>
-    <div class="who-card">
-      <div class="who-icon">📱</div>
-      <div class="who-title">SaaS Founders</div>
-      <div class="who-desc">Scrape your exact target market before spending on ads. Validate demand with real outreach first.</div>
-    </div>
-    <div class="who-card">
-      <div class="who-icon">🏠</div>
-      <div class="who-title">Local Service Providers</div>
-      <div class="who-desc">Find every business in your area that needs your service. Plumbers, cleaners, IT — build your pipeline fast.</div>
-    </div>
-    <div class="who-card">
-      <div class="who-icon">📊</div>
-      <div class="who-title">Recruiters</div>
-      <div class="who-desc">Target specific business types to find hiring managers and decision-makers directly.</div>
-    </div>
+    <div class="who-card"><div class="who-icon">📞</div><div class="who-title">Cold Callers</div><div class="who-desc">Build targeted call lists for any niche, any city. Get direct phone numbers for every business in your market instantly.</div></div>
+    <div class="who-card"><div class="who-icon">🏢</div><div class="who-title">Sales Agencies</div><div class="who-desc">Pull fresh local business leads for clients on demand. Deliver more value, faster, at zero ongoing cost.</div></div>
+    <div class="who-card"><div class="who-icon">💼</div><div class="who-title">Freelancers</div><div class="who-desc">Find potential clients in your city instantly. Target exactly the type of business you want to work with.</div></div>
+    <div class="who-card"><div class="who-icon">📱</div><div class="who-title">SaaS Founders</div><div class="who-desc">Scrape your exact target market before spending on ads. Validate demand with real outreach first.</div></div>
+    <div class="who-card"><div class="who-icon">🏠</div><div class="who-title">Local Service Providers</div><div class="who-desc">Find every business in your area that needs your service. Build your pipeline fast.</div></div>
+    <div class="who-card"><div class="who-icon">📊</div><div class="who-title">Recruiters</div><div class="who-desc">Target specific business types to find hiring managers and decision-makers directly.</div></div>
   </div>
 </section>
 <section style="background:var(--bg2);padding:100px 40px">
@@ -222,47 +193,9 @@ nav{padding:16px 20px}
     <div class="section-label">How it works</div>
     <div class="section-title">Three steps.<br>One CSV.</div>
     <div class="how-grid">
-      <div class="how-step">
-        <div class="step-num">01</div>
-        <div class="step-title">Pay once</div>
-        <div class="step-desc">One-time payment via Stripe. No account required. No subscription. No hidden fees. You pay, you get access immediately.</div>
-      </div>
-      <div class="how-step">
-        <div class="step-num">02</div>
-        <div class="step-title">Type your search</div>
-        <div class="step-desc">Enter any business type — "dental offices," "gyms," "law firms" — and any US city. Hit search. Takes 60 seconds.</div>
-      </div>
-      <div class="how-step">
-        <div class="step-num">03</div>
-        <div class="step-title">Download your CSV</div>
-        <div class="step-desc">Get up to 100 leads with business name, address, phone number, and website. Ready to import anywhere.</div>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="section">
-  <div class="section-label">Use cases</div>
-  <div class="section-title">What people<br>actually search for.</div>
-  <div class="use-grid">
-    <div class="use-card">
-      <div class="use-query">▶ "nail salons, Los Angeles CA"</div>
-      <div class="use-desc">Perfect for beauty product reps, booking software salespeople, or anyone targeting the LA beauty market.</div>
-      <div class="use-result">Returns nail salons with phones, addresses, websites</div>
-    </div>
-    <div class="use-card">
-      <div class="use-query">▶ "dentists, Austin TX"</div>
-      <div class="use-desc">Dental supply companies, practice management software, or any B2B targeting dental offices in Austin.</div>
-      <div class="use-result">Returns dental offices with direct contact info</div>
-    </div>
-    <div class="use-card">
-      <div class="use-query">▶ "restaurants, Chicago IL"</div>
-      <div class="use-desc">Food distributors, POS system vendors, delivery platforms, or anyone targeting Chicago's restaurant scene.</div>
-      <div class="use-result">Returns restaurants with phone numbers and addresses</div>
-    </div>
-    <div class="use-card">
-      <div class="use-query">▶ "law firms, New York NY"</div>
-      <div class="use-desc">Legal tech companies, office supply vendors, or any service targeting NYC's massive legal market.</div>
-      <div class="use-result">Returns law firms with direct contact info</div>
+      <div class="how-step"><div class="step-num">01</div><div class="step-title">Search free</div><div class="step-desc">Type any business type and city above. See 5 real leads from Google Maps instantly, no payment required.</div></div>
+      <div class="how-step"><div class="step-num">02</div><div class="step-title">Pay once to unlock</div><div class="step-desc">$49 for 100 leads with phones, addresses, and websites. $99 to also include business emails where available.</div></div>
+      <div class="how-step"><div class="step-num">03</div><div class="step-title">Download your CSV</div><div class="step-desc">Instant CSV download after payment. Ready to import into any CRM, dialer, or email tool.</div></div>
     </div>
   </div>
 </section>
@@ -271,24 +204,9 @@ nav{padding:16px 20px}
     <div class="section-label">What people are saying</div>
     <div class="section-title">Real results.<br>Real people.</div>
     <div class="test-grid">
-      <div class="test-card">
-        <div class="test-stars">★★★★★</div>
-        <div class="test-quote">"I was paying $400/mo for Apollo. MapZap gets me fresh local leads for $49 one-time. I feel like an idiot for not finding this sooner."</div>
-        <div class="test-name">Ryan Kowalski</div>
-        <div class="test-role">Cold Outreach Agency Owner, Chicago</div>
-      </div>
-      <div class="test-card">
-        <div class="test-stars">★★★★★</div>
-        <div class="test-quote">"Pulled a list of restaurant leads in Miami in under a minute. Called 50 of them that afternoon. Closed 3 clients that week. Best $49 I've ever spent."</div>
-        <div class="test-name">Darius Fleming</div>
-        <div class="test-role">Freelance Marketing Consultant, Miami</div>
-      </div>
-      <div class="test-card">
-        <div class="test-stars">★★★★★</div>
-        <div class="test-quote">"I needed a list of every gym in Dallas for a client pitch. MapZap had it ready in 60 seconds. The client was impressed I moved so fast."</div>
-        <div class="test-name">Priya Nair</div>
-        <div class="test-role">SaaS Sales Rep, Dallas</div>
-      </div>
+      <div class="test-card"><div class="test-stars">★★★★★</div><div class="test-quote">"I was paying $400/mo for Apollo. MapZap gets me fresh local leads for $49 one-time. I feel like an idiot for not finding this sooner."</div><div class="test-name">Ryan Kowalski</div><div class="test-role">Cold Outreach Agency Owner, Chicago</div></div>
+      <div class="test-card"><div class="test-stars">★★★★★</div><div class="test-quote">"Pulled a list of restaurant leads in Miami in under a minute. Called 50 of them that afternoon. Closed 3 clients that week. Best $49 I've ever spent."</div><div class="test-name">Darius Fleming</div><div class="test-role">Freelance Marketing Consultant, Miami</div></div>
+      <div class="test-card"><div class="test-stars">★★★★★</div><div class="test-quote">"I needed a list of every gym in Dallas for a client pitch. MapZap had it ready in 60 seconds. The client was impressed I moved so fast."</div><div class="test-name">Priya Nair</div><div class="test-role">SaaS Sales Rep, Dallas</div></div>
     </div>
   </div>
 </section>
@@ -296,7 +214,6 @@ nav{padding:16px 20px}
   <div class="section-label">Pricing</div>
   <div class="section-title" style="text-align:center;margin-bottom:48px">Two options.<br>Zero subscriptions.</div>
   <div class="pricing-grid">
-    <!-- Basic $49 -->
     <div class="pricing-card">
       <div class="pricing-badge">STARTER</div>
       <div class="price-num">$49</div>
@@ -314,7 +231,6 @@ nav{padding:16px 20px}
       <a href="https://buy.stripe.com/6oUdR9aHF9qIdYSbHU2Ry09" class="buy-btn">GET LEADS — $49 →</a>
       <p class="price-note">Secure payment via Stripe. Instant access.</p>
     </div>
-    <!-- Pro $99 -->
     <div class="pricing-card pro">
       <div class="pricing-badge pro-badge">PRO — WITH EMAILS</div>
       <div class="price-num">$99</div>
@@ -339,34 +255,12 @@ nav{padding:16px 20px}
     <div class="section-label">FAQ</div>
     <div class="section-title" style="margin-bottom:48px">Questions.</div>
     <div class="faq-list">
-      <div class="faq-item">
-        <div class="faq-q">How many leads do I actually get?</div>
-        <div class="faq-a">Up to 100 leads per search depending on how many businesses exist in that city and category. Major cities with common business types return the most results.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">What data is included in the CSV?</div>
-        <div class="faq-a">Business name, phone number, full street address, and website URL. The Pro tier also includes business emails where they can be found. Sourced live from Google Maps.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">How many emails will I get in the Pro tier?</div>
-        <div class="faq-a">Emails are found for roughly 30 to 40% of results on average. Every business that has a publicly listed email on their website will be included. You still get the full 100 leads regardless.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Is the data fresh?</div>
-        <div class="faq-a">Yes. Every search pulls live data directly from Google Maps in real time. You're never getting a stale database — it's always current.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Do I need to create an account?</div>
-        <div class="faq-a">No. Pay via Stripe, get instant access to the search tool, download your CSV. No login, no account, no friction.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">What if I need leads for multiple cities?</div>
-        <div class="faq-a">Each payment gives you one search. Run as many searches as you need — each one is a separate one-time payment.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Is there a subscription or recurring charge?</div>
-        <div class="faq-a">Never. One-time per search. No subscription, no monthly fee, no surprises on your card statement.</div>
-      </div>
+      <div class="faq-item"><div class="faq-q">How many leads do I actually get?</div><div class="faq-a">Up to 100 leads per search depending on how many businesses exist in that city and category.</div></div>
+      <div class="faq-item"><div class="faq-q">What data is included in the CSV?</div><div class="faq-a">Business name, phone number, full street address, and website URL. The Pro tier also includes business emails where they can be found.</div></div>
+      <div class="faq-item"><div class="faq-q">How many emails will I get in the Pro tier?</div><div class="faq-a">Emails are found for roughly 30 to 40% of results on average. You still get the full 100 leads regardless.</div></div>
+      <div class="faq-item"><div class="faq-q">Is the data fresh?</div><div class="faq-a">Yes. Every search pulls live data directly from Google Maps in real time.</div></div>
+      <div class="faq-item"><div class="faq-q">Do I need to create an account?</div><div class="faq-a">No. Pay via Stripe, get instant access, download your CSV. No login required.</div></div>
+      <div class="faq-item"><div class="faq-q">Is there a subscription or recurring charge?</div><div class="faq-a">Never. One-time per search. No subscription, no monthly fee.</div></div>
     </div>
   </div>
 </section>
@@ -375,7 +269,7 @@ nav{padding:16px 20px}
   <div style="position:relative;max-width:700px;margin:0 auto">
     <div class="section-label" style="justify-content:center;display:flex">Stop wasting time</div>
     <div class="section-title" style="font-size:clamp(48px,8vw,96px)">Your next 100<br>leads are <span style="color:var(--accent)">60 seconds</span><br>away.</div>
-    <a href="https://buy.stripe.com/6oUdR9aHF9qIdYSbHU2Ry09" class="hero-cta" style="margin-top:40px;display:inline-block">GET STARTED — $49</a>
+    <a href="#" onclick="document.getElementById('bizType').focus();window.scrollTo({top:0,behavior:'smooth'});return false;" style="margin-top:40px;display:inline-block;background:var(--accent);color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;letter-spacing:2px;padding:20px 48px;text-decoration:none">TRY IT FREE →</a>
   </div>
 </section>
 <footer>
@@ -383,12 +277,65 @@ nav{padding:16px 20px}
   <span style="margin-top:8px;display:block">Questions? Email <a href="mailto:hello@mapzap.org" style="color:var(--accent)">hello@mapzap.org</a></span>
 </footer>
 <script>
-document.querySelectorAll('.faq-q').forEach(q=>{
-  q.addEventListener('click',()=>{
-    const item=q.parentElement;
-    const wasOpen=item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
-    if(!wasOpen)item.classList.add('open');
+async function runPreview() {
+  const bizType = document.getElementById('bizType').value.trim();
+  const bizCity = document.getElementById('bizCity').value.trim();
+  const btn = document.getElementById('searchBtn');
+  const statusMsg = document.getElementById('statusMsg');
+  if (!bizType || !bizCity) {
+    statusMsg.style.display = 'block';
+    statusMsg.style.color = '#FF6B6B';
+    statusMsg.textContent = 'Please enter both a business type and city.';
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = 'SEARCHING...';
+  statusMsg.style.display = 'block';
+  statusMsg.style.color = 'var(--accent)';
+  statusMsg.textContent = 'Pulling live data from Google Maps...';
+  document.getElementById('previewSection').style.display = 'none';
+  try {
+    const res = await fetch('https://api.mapzap.org/api/preview', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({business_type: bizType, city: bizCity})
+    });
+    const data = await res.json();
+    if (!res.ok || data.error) throw new Error(data.error || 'Search failed');
+    const tbody = document.getElementById('previewBody');
+    tbody.innerHTML = '';
+    data.leads.forEach(lead => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td><strong>${lead.name}</strong></td><td>${lead.phone || 'N/A'}</td><td style="font-size:12px;color:var(--muted)">${lead.address}</td><td>${lead.website ? `<a href="${lead.website}" target="_blank">visit →</a>` : 'N/A'}</td>`;
+      tbody.appendChild(tr);
+    });
+    for (let i = 0; i < 3; i++) {
+      const tr = document.createElement('tr');
+      tr.className = 'blur-row';
+      tr.innerHTML = '<td>████████████</td><td>(███) ███-████</td><td>████ ██████ ██, ████████</td><td>██████.com</td>';
+      tbody.appendChild(tr);
+    }
+    document.getElementById('previewCount').textContent = `Showing 5 of ~${data.total} results`;
+    document.getElementById('previewSection').style.display = 'block';
+    statusMsg.style.display = 'none';
+  } catch(err) {
+    statusMsg.style.color = '#FF6B6B';
+    statusMsg.textContent = 'Error: ' + err.message;
+  }
+  btn.disabled = false;
+  btn.textContent = 'SEARCH →';
+}
+document.addEventListener('DOMContentLoaded', () => {
+  ['bizType','bizCity'].forEach(id => {
+    document.getElementById(id).addEventListener('keydown', e => { if (e.key === 'Enter') runPreview(); });
+  });
+});
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
   });
 });
 </script>
