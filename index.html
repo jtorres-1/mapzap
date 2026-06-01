@@ -155,8 +155,8 @@ footer strong{color:var(--text)}
         <div class="paywall-title">Unlock All 100 Leads</div>
         <div class="paywall-sub">You just saw 5 of the 100 leads available for this search. Pay once to get the full CSV with every business name, phone number, address, and website — ready to import anywhere.</div>
         <div class="paywall-btns">
-          <a href="https://buy.stripe.com/6oUdR9aHF9qIdYSbHU2Ry09" class="paywall-btn basic">GET 100 LEADS — $49</a>
-          <a href="https://buy.stripe.com/6oUaEX1758mE5smbHU2Ry0a" class="paywall-btn pro">+ EMAILS — $99</a>
+          <a href="https://buy.stripe.com/6oUdR9aHF9qIdYSbHU2Ry09" class="paywall-btn basic" id="basicBtn">GET 100 LEADS — $49</a>
+          <a href="https://buy.stripe.com/6oUaEX1758mE5smbHU2Ry0a" class="paywall-btn pro" id="proBtn">+ EMAILS — $99</a>
         </div>
         <p class="paywall-note">One-time payment. Instant CSV download. No subscription ever.</p>
       </div>
@@ -318,6 +318,11 @@ async function runPreview() {
     document.getElementById('previewCount').textContent = `Showing 5 of ~${data.total} results`;
     document.getElementById('previewSection').style.display = 'block';
     statusMsg.style.display = 'none';
+
+    // Save search to localStorage so success page can pre-fill
+    localStorage.setItem('mz_type', bizType);
+    localStorage.setItem('mz_city', bizCity);
+
   } catch(err) {
     statusMsg.style.color = '#FF6B6B';
     statusMsg.textContent = 'Error: ' + err.message;
