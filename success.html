@@ -39,7 +39,6 @@ input::placeholder{color:var(--muted)}
   <div class="badge" id="badge">✓ PAYMENT CONFIRMED</div>
   <h1 id="heading">Get Your<br><span style="color:var(--accent)">Leads Now</span></h1>
   <p class="sub" id="sub">Enter what you're looking for and where. We'll pull up to 100 leads from Google Maps and deliver your CSV instantly.</p>
-  
   <div class="form-group">
     <label>Business Type</label>
     <input type="text" id="businessType" placeholder="e.g. restaurants, dentists, gyms, law firms" />
@@ -48,16 +47,13 @@ input::placeholder{color:var(--muted)}
     <label>City & State</label>
     <input type="text" id="city" placeholder="e.g. Miami FL, Los Angeles CA, Austin TX" />
   </div>
-  
   <button class="btn" id="scrapeBtn" onclick="startScrape()">
     <span id="btnText">DOWNLOAD MY LEADS →</span>
     <div class="spinner" id="spinner" style="display:none"></div>
   </button>
-  
   <div class="status" id="status"></div>
   <p class="note" id="note">Powered by live Google Maps data. Results delivered as a CSV file ready to import anywhere.</p>
 </div>
-
 <script>
 const params = new URLSearchParams(window.location.search);
 const sessionId = params.get('session_id');
@@ -65,8 +61,11 @@ const tier = params.get('tier') || 'basic';
 const prefillType = params.get('type');
 const prefillCity = params.get('city');
 
-if(prefillType) document.getElementById('businessType').value = decodeURIComponent(prefillType);
-if(prefillCity) document.getElementById('city').value = decodeURIComponent(prefillCity);
+// Pre-fill from URL params or localStorage
+const savedType = prefillType ? decodeURIComponent(prefillType) : localStorage.getItem('mz_type');
+const savedCity = prefillCity ? decodeURIComponent(prefillCity) : localStorage.getItem('mz_city');
+if(savedType) document.getElementById('businessType').value = savedType;
+if(savedCity) document.getElementById('city').value = savedCity;
 
 if(tier === 'pro') {
   document.getElementById('card').classList.add('pro');
@@ -93,17 +92,14 @@ async function startScrape() {
   const status = document.getElementById('status');
   const btnText = document.getElementById('btnText');
   const spinner = document.getElementById('spinner');
-
   if(!businessType || !city) {
     status.className = 'status error';
     status.textContent = 'Please enter both a business type and city.';
     return;
   }
-
   btn.disabled = true;
   spinner.style.display = 'block';
   status.className = 'status loading';
-
   if(tier === 'pro') {
     btnText.textContent = 'FINDING EMAILS...';
     status.textContent = 'Pulling live data from Google Maps and finding business emails. This takes 1 to 2 minutes...';
@@ -111,19 +107,16 @@ async function startScrape() {
     btnText.textContent = 'SCRAPING GOOGLE MAPS...';
     status.textContent = 'Pulling live data from Google Maps. This takes 15 to 30 seconds...';
   }
-
   try {
     const response = await fetch('https://api.mapzap.org/api/scrape', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({session_id: sessionId, business_type: businessType, city: city, tier: tier})
     });
-
     if(!response.ok) {
       const err = await response.json();
       throw new Error(err.error || 'Scrape failed');
     }
-
     const blob = await response.blob();
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -133,17 +126,18 @@ async function startScrape() {
     a.click();
     a.remove();
     window.URL.revokeObjectURL(url);
-
+    // Clear localStorage after successful download
+    localStorage.removeItem('mz_type');
+    localStorage.removeItem('mz_city');
     status.className = 'status success';
     status.textContent = '✓ Your CSV is downloading now. Check your downloads folder.';
     btnText.textContent = 'DOWNLOADED ✓';
     spinner.style.display = 'none';
-
   } catch(err) {
     status.className = 'status error';
     status.textContent = `Error: ${err.message}. Email hello@mapzap.org for support.`;
     btn.disabled = false;
-    btnText.textContent = tier === 'pro' ? 'TRY AGAIN' : 'TRY AGAIN';
+    btnText.textContent = 'TRY AGAIN';
     spinner.style.display = 'none';
   }
 }
