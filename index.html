@@ -116,7 +116,7 @@ footer strong{color:var(--text)}
 </style>
 </head>
 <body>
-<div id="top-banner" style="background:rgba(255,214,0,0.1);border-bottom:1px solid rgba(255,214,0,0.3);padding:10px;text-align:center"><span style="font-family:Barlow Condensed,sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#FFD600">⚡ LAUNCH PRICING ENDS IN <span id="countdown"></span></span></div><nav>
+<div id="top-banner" style="background:rgba(255,214,0,0.1);border-bottom:1px solid rgba(255,214,0,0.3);padding:10px;text-align:center"><span style="font-family:Barlow Condensed,sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#FFD600">⚡ LAUNCH PRICING ENDS IN <span class="countdown-timer"></span></span></div><nav>
   <div class="nav-logo">Map<span>Zap</span></div>
   <a href="#pricing" class="nav-cta">GET LEADS — $49</a>
 </nav>
@@ -154,7 +154,7 @@ footer strong{color:var(--text)}
       <div class="paywall">
         <div class="paywall-title">Unlock All 100 Leads</div>
         <div class="paywall-sub">You just saw 5 of the 100 leads available for this search. Pay once to get the full CSV with every business name, phone number, address, and website — ready to import anywhere.</div>
-        <div id="countdown-bar" style="background:rgba(255,214,0,0.08);border:1px solid rgba(255,214,0,0.3);padding:12px;text-align:center;margin-bottom:16px"><span style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#FFD600">⚡ LAUNCH PRICING ENDS IN </span><span id="countdown" style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:900;color:#FFD600"></span></div><div class="paywall-btns">
+        <div id="countdown-bar" style="background:rgba(255,214,0,0.08);border:1px solid rgba(255,214,0,0.3);padding:12px;text-align:center;margin-bottom:16px"><span style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#FFD600">⚡ LAUNCH PRICING ENDS IN </span><span class="countdown-timer" style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:900;color:#FFD600"></span></div><div class="paywall-btns">
           <a href="https://buy.stripe.com/6oUdR9aHF9qIdYSbHU2Ry09" class="paywall-btn basic" id="basicBtn">GET 100 LEADS — $49</a>
           <a href="https://buy.stripe.com/6oUaEX1758mE5smbHU2Ry0a" class="paywall-btn pro" id="proBtn">+ EMAILS — $99</a>
         </div>
@@ -318,11 +318,8 @@ async function runPreview() {
     document.getElementById('previewCount').textContent = `Showing 5 of ~${data.total} results`;
     document.getElementById('previewSection').style.display = 'block';
     statusMsg.style.display = 'none';
-
-    // Save search to localStorage so success page can pre-fill
     localStorage.setItem('mz_type', bizType);
     localStorage.setItem('mz_city', bizCity);
-
   } catch(err) {
     statusMsg.style.color = '#FF6B6B';
     statusMsg.textContent = 'Error: ' + err.message;
@@ -335,14 +332,27 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById(id).addEventListener('keydown', e => { if (e.key === 'Enter') runPreview(); });
   });
 });
-const end=new Date(Date.now()+48*60*60*1000);const saved=localStorage.getItem("mz_end");const target=saved?new Date(saved):(localStorage.setItem("mz_end",end.toISOString()),end);function tick(){const diff=target-new Date();if(diff<=0){document.getElementById("countdown").textContent="EXPIRED";return;}const h=Math.floor(diff/3600000);const m=Math.floor((diff%3600000)/60000);const s=Math.floor((diff%60000)/1000);document.getElementById("countdown").textContent=h+"h "+m+"m "+s+"s";setTimeout(tick,1000);}tick();document.querySelectorAll('.faq-q').forEach(q => {
+document.querySelectorAll('.faq-q').forEach(q => {
   q.addEventListener('click', () => {
     const item = q.parentElement;
     const wasOpen = item.classList.contains('open');
-    const end=new Date(Date.now()+48*60*60*1000);const saved=localStorage.getItem("mz_end");const target=saved?new Date(saved):(localStorage.setItem("mz_end",end.toISOString()),end);function tick(){const diff=target-new Date();if(diff<=0){document.getElementById("countdown").textContent="EXPIRED";return;}const h=Math.floor(diff/3600000);const m=Math.floor((diff%3600000)/60000);const s=Math.floor((diff%60000)/1000);document.getElementById("countdown").textContent=h+"h "+m+"m "+s+"s";setTimeout(tick,1000);}tick();document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
     if (!wasOpen) item.classList.add('open');
   });
 });
+const saved = localStorage.getItem('mz_end');
+const target = saved ? new Date(saved) : (() => { const e = new Date(Date.now()+48*60*60*1000); localStorage.setItem('mz_end', e.toISOString()); return e; })();
+function tick() {
+  const diff = target - new Date();
+  const els = document.querySelectorAll('.countdown-timer');
+  if (diff <= 0) { els.forEach(el => el.textContent = 'EXPIRED'); return; }
+  const h = Math.floor(diff/3600000);
+  const m = Math.floor((diff%3600000)/60000);
+  const s = Math.floor((diff%60000)/1000);
+  els.forEach(el => el.textContent = h+'h '+m+'m '+s+'s');
+  setTimeout(tick, 1000);
+}
+tick();
 </script>
 </body>
 </html>
