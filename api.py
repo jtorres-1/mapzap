@@ -142,7 +142,7 @@ def scrape_emails(url, business_domain=None):
 # =========================
 # PLACES SCRAPER
 # =========================
-def search_places(query, city, max_results=100):
+def search_places(query, city, max_results=300):
     url = "https://places.googleapis.com/v1/places:searchText"
     headers = {
         "Content-Type": "application/json",
@@ -150,7 +150,12 @@ def search_places(query, city, max_results=100):
         "X-Goog-FieldMask": "places.displayName,places.formattedAddress,places.nationalPhoneNumber,places.websiteUri,places.id"
     }
     all_places = {}
-    neighborhoods = ["", "downtown", "north", "south", "east", "west", "central", "northeast", "northwest", "southeast", "southwest"]
+    neighborhoods = [
+        "", "downtown", "north", "south", "east", "west",
+        "central", "northeast", "northwest", "southeast", "southwest",
+        "midtown", "uptown", "old town", "historic district",
+        "financial district", "waterfront", "suburbs", "metro", "city center"
+    ]
     for area in neighborhoods:
         if len(all_places) >= max_results:
             break
@@ -190,7 +195,7 @@ def preview():
                 "phone": p.get("nationalPhoneNumber", ""),
                 "website": p.get("websiteUri", "")
             })
-        return jsonify({"leads": leads, "total": 100})
+        return jsonify({"leads": leads, "total": 300})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
