@@ -20,21 +20,6 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 stripe.api_key = STRIPE_SECRET_KEY
 
-SESSIONS_FILE = "/root/mapzap/used_sessions.json"
-
-def load_sessions():
-    try:
-        with open(SESSIONS_FILE) as f:
-            return set(json.load(f))
-    except:
-        return set()
-
-def save_session(sid):
-    sessions = load_sessions()
-    sessions.add(sid)
-    with open(SESSIONS_FILE, "w") as f:
-        json.dump(list(sessions), f)
-
 # =========================
 # EMAIL FINDER
 # =========================
@@ -142,7 +127,7 @@ def scrape_emails(url, business_domain=None):
 # =========================
 # PLACES SCRAPER
 # =========================
-def search_places(query, city, max_results=300):
+def search_places(query, city, max_results=100):
     url = "https://places.googleapis.com/v1/places:searchText"
     headers = {
         "Content-Type": "application/json",
@@ -174,6 +159,39 @@ def search_places(query, city, max_results=300):
     return list(all_places.values())[:max_results]
 
 # =========================
+# SUBSCRIPTION VALIDATOR
+# =========================
+def validate_subscription(session_id):
+    """
+    Validates that a Stripe checkout session completed and
+    the resulting subscription is active.
+    Returns (valid: bool, tier: str, error: str)
+    """
+    try:
+        session = stripe.checkout.Session.retrieve(session_id, expand=["subscription"])
+        if session.payment_status != "paid":
+            return False, None, "Payment not completed"
+        subscription = session.subscription
+        if not subscription:
+            return False, None, "No subscription found"
+        if isinstance(subscription, str):
+            subscription = stripe.Subscription.retrieve(subscription)
+        if subscription.status not in ("active", "trialing"):
+            return False, None, "Subscription is not active"
+        # Determine tier from price amount
+        items = subscription.get("items", {}).get("data", [])
+        tier = "basic"
+        if items:
+            amount = items[0].get("price", {}).get("unit_amount", 0)
+            if amount >= 9900:
+                tier = "pro"
+        return True, tier, None
+    except stripe.error.InvalidRequestError:
+        return False, None, "Invalid session ID"
+    except Exception as e:
+        return False, None, str(e)
+
+# =========================
 # ROUTES
 # =========================
 @app.route("/api/preview", methods=["POST"])
@@ -195,7 +213,7 @@ def preview():
                 "phone": p.get("nationalPhoneNumber", ""),
                 "website": p.get("websiteUri", "")
             })
-        return jsonify({"leads": leads, "total": 300})
+        return jsonify({"leads": leads, "total": 100})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -205,22 +223,22 @@ def scrape():
     session_id = data.get("session_id")
     business_type = data.get("business_type", "").strip()
     city = data.get("city", "").strip()
-    tier = data.get("tier", "basic").strip().lower()
+    tier_override = data.get("tier", "").strip().lower()
 
     if not session_id or not business_type or not city:
         return jsonify({"error": "Missing required fields"}), 400
 
-    if session_id in load_sessions():
-        return jsonify({"error": "This session has already been used. Please purchase a new search."}), 403
+    valid, tier, error = validate_subscription(session_id)
+    if not valid:
+        return jsonify({"error": error or "Invalid or inactive subscription"}), 403
 
-    try:
-        session = stripe.checkout.Session.retrieve(session_id)
-        if session.payment_status != "paid":
-            return jsonify({"error": "Payment not completed"}), 402
-    except Exception:
-        return jsonify({"error": "Invalid session"}), 400
-
-    save_session(session_id)
+    # Allow frontend tier override only downward (basic can't become pro)
+    if tier_override == "pro" and tier == "pro":
+        tier = "pro"
+    elif tier == "pro":
+        tier = "pro"
+    else:
+        tier = "basic"
 
     try:
         places = search_places(business_type, city)
