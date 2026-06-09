@@ -179,12 +179,14 @@ def validate_subscription(session_id):
         if subscription.status not in ("active", "trialing"):
             return False, None, "Subscription is not active"
         # Determine tier from price amount
-        items = subscription.get("items", {}).get("data", [])
+        
         tier = "basic"
-        if items:
-            amount = items[0].get("price", {}).get("unit_amount", 0)
+        try:
+            amount = subscription.items.data[0].price.unit_amount
             if amount >= 9900:
                 tier = "pro"
+        except:
+            tier = "basic"
         return True, tier, None
     except stripe.error.InvalidRequestError:
         return False, None, "Invalid session ID"
