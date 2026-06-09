@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MapZap — 300 Local Business Leads in 60 Seconds</title>
+<title>MapZap — 100 Local Business Leads in 60 Seconds</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -11,12 +11,12 @@
 :root{--bg:#080A0F;--bg2:#0E1118;--bg3:#141820;--accent:#00E5FF;--accent2:#FFD600;--text:#F0F4FF;--muted:#6B7A99;--border:#1E2535}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;overflow-x:hidden}
-nav{position:fixed;top:36px;left:0;right:0;z-index:100;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;background:rgba(8,10,15,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;background:rgba(8,10,15,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
 .nav-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:24px;letter-spacing:-0.5px}
 .nav-logo span{color:var(--accent)}
 .nav-cta{background:var(--accent);color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:15px;letter-spacing:1px;padding:10px 24px;border:none;cursor:pointer;text-decoration:none;transition:opacity 0.2s}
 .nav-cta:hover{opacity:0.85}
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:156px 24px 80px;position:relative;overflow:hidden}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,229,255,0.06) 0%,transparent 70%)}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:0.3}
 .hero-content{position:relative;max-width:900px;width:100%}
@@ -86,7 +86,7 @@ nav{position:fixed;top:36px;left:0;right:0;z-index:100;padding:16px 40px;display
 .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);max-width:900px;margin:0 auto}
 .pricing-card{background:var(--bg2);padding:48px 40px;position:relative;overflow:hidden}
 .pricing-card.pro{background:var(--bg3)}
-.pricing-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--border)}
+.pricing-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent)}
 .pricing-card.pro::before{background:var(--accent2)}
 .pricing-badge{display:inline-block;background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.2);color:var(--accent);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;margin-bottom:20px}
 .pricing-badge.pro-badge{background:rgba(255,214,0,0.1);border-color:rgba(255,214,0,0.3);color:var(--accent2)}
@@ -116,9 +116,9 @@ footer strong{color:var(--text)}
 </style>
 </head>
 <body>
-<div id="top-banner" style="background:rgba(255,214,0,0.1);border-bottom:1px solid rgba(255,214,0,0.3);padding:10px;text-align:center;position:fixed;top:0;left:0;right:0;z-index:101"><span style="font-family:Barlow Condensed,sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#FFD600">⚡ LAUNCH PRICING ENDS IN <span class="countdown-timer"></span></span></div><nav>
+<nav>
   <div class="nav-logo">Map<span>Zap</span></div>
-  <a href="#pricing" class="nav-cta">GET LEADS — $49</a>
+  <a href="#pricing" class="nav-cta">GET LEADS — $49/MO</a>
 </nav>
 <section class="hero">
   <div class="hero-bg"></div>
@@ -126,7 +126,7 @@ footer strong{color:var(--text)}
   <div class="hero-content">
     <div class="hero-badge">⚡ Powered by Google Maps</div>
     <h1>Hundreds of Business<br>Leads in <span>60 Seconds</span></h1>
-    <p class="hero-sub">Type a business type and city. See real leads instantly. Pay once to unlock the full CSV. <strong>No subscription. No monthly fees.</strong></p>
+    <p class="hero-sub">Type a business type and city. See real leads instantly. Subscribe to unlock unlimited CSV downloads. <strong>Cancel anytime.</strong></p>
     <div class="search-box">
       <span class="search-box-label">Try it free — see 5 real leads from your market</span>
       <div class="search-row">
@@ -152,13 +152,13 @@ footer strong{color:var(--text)}
         <tbody id="previewBody"></tbody>
       </table>
       <div class="paywall">
-        <div class="paywall-title">Unlock All Your Leads</div>
-        <div class="paywall-sub">You just saw 5 of the 300 leads available for this search. Pay once to get the full CSV with every business name, phone number, address, and website — ready to import anywhere.</div>
-        <div id="countdown-bar" style="background:rgba(255,214,0,0.08);border:1px solid rgba(255,214,0,0.3);padding:12px;text-align:center;margin-bottom:16px"><span style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#FFD600">⚡ LAUNCH PRICING ENDS IN </span><span class="countdown-timer" style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:900;color:#FFD600"></span></div><div class="paywall-btns">
-          <a href="https://buy.stripe.com/6oUdR9aHF9qIdYSbHU2Ry09" class="paywall-btn basic" id="basicBtn">GET LEADS — $49</a>
-          <a href="https://buy.stripe.com/6oUaEX1758mE5smbHU2Ry0a" class="paywall-btn pro" id="proBtn">+ EMAILS — $99</a>
+        <div class="paywall-title">Unlock Unlimited Leads</div>
+        <div class="paywall-sub">You just saw 5 of hundreds of leads available for this search. Subscribe to get unlimited CSV downloads with every business name, phone number, address, and website — ready to import anywhere.</div>
+        <div class="paywall-btns">
+          <a href="https://buy.stripe.com/00w3cvaHF32k7Au5jw2Ry0b" class="paywall-btn basic" id="basicBtn">SUBSCRIBE — $49/MO</a>
+          <a href="https://buy.stripe.com/cNi14n7vt0Uc1c65jw2Ry0c" class="paywall-btn pro" id="proBtn">+ EMAILS — $99/MO</a>
         </div>
-        <p class="paywall-note">One-time payment. Instant CSV download. No subscription ever.</p>
+        <p class="paywall-note">Unlimited searches. Cancel anytime. Instant CSV download.</p>
       </div>
     </div>
   </div>
@@ -172,16 +172,16 @@ footer strong{color:var(--text)}
   <div class="stats">
     <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Leads per search</div></div>
     <div class="stat"><div class="stat-num">60s</div><div class="stat-label">Delivery time</div></div>
-    <div class="stat"><div class="stat-num">$0</div><div class="stat-label">Monthly fee</div></div>
+    <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Searches per month</div></div>
     <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Business types</div></div>
   </div>
 </div>
-<div style="background:var(--bg2);padding:60px 40px;text-align:center"><div style="max-width:800px;margin:0 auto"><div style="font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:16px">SEE IT IN ACTION</div><div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden"><iframe src="https://www.youtube.com/embed/v_TzbSV57H4?autoplay=1&mute=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allowfullscreen></iframe></div></div></div><section class="section">
+<section class="section">
   <div class="section-label">Who it's for</div>
   <div class="section-title">Built for people<br>who need leads <em style="color:var(--accent);font-style:normal">now.</em></div>
   <div class="who-grid">
     <div class="who-card"><div class="who-icon">📞</div><div class="who-title">Cold Callers</div><div class="who-desc">Build targeted call lists for any niche, any city. Get direct phone numbers for every business in your market instantly.</div></div>
-    <div class="who-card"><div class="who-icon">🏢</div><div class="who-title">Sales Agencies</div><div class="who-desc">Pull fresh local business leads for clients on demand. Deliver more value, faster, at zero ongoing cost.</div></div>
+    <div class="who-card"><div class="who-icon">🏢</div><div class="who-title">Sales Agencies</div><div class="who-desc">Pull fresh local business leads for clients on demand. Deliver more value, faster, at a flat monthly rate.</div></div>
     <div class="who-card"><div class="who-icon">💼</div><div class="who-title">Freelancers</div><div class="who-desc">Find potential clients in your city instantly. Target exactly the type of business you want to work with.</div></div>
     <div class="who-card"><div class="who-icon">📱</div><div class="who-title">SaaS Founders</div><div class="who-desc">Scrape your exact target market before spending on ads. Validate demand with real outreach first.</div></div>
     <div class="who-card"><div class="who-icon">🏠</div><div class="who-title">Local Service Providers</div><div class="who-desc">Find every business in your area that needs your service. Build your pipeline fast.</div></div>
@@ -194,8 +194,8 @@ footer strong{color:var(--text)}
     <div class="section-title">Three steps.<br>One CSV.</div>
     <div class="how-grid">
       <div class="how-step"><div class="step-num">01</div><div class="step-title">Search free</div><div class="step-desc">Type any business type and city above. See 5 real leads from Google Maps instantly, no payment required.</div></div>
-      <div class="how-step"><div class="step-num">02</div><div class="step-title">Pay once to unlock</div><div class="step-desc">$49 for up to 300 leads with phones, addresses, and websites. $99 to also include business emails where available.</div></div>
-      <div class="how-step"><div class="step-num">03</div><div class="step-title">Download your CSV</div><div class="step-desc">Instant CSV download after payment. Ready to import into any CRM, dialer, or email tool.</div></div>
+      <div class="how-step"><div class="step-num">02</div><div class="step-title">Subscribe to unlock</div><div class="step-desc">$49/month for unlimited searches with phones, addresses, and websites. $99/month to also include business emails.</div></div>
+      <div class="how-step"><div class="step-num">03</div><div class="step-title">Download your CSV</div><div class="step-desc">Instant CSV download after every search. Ready to import into any CRM, dialer, or email tool.</div></div>
     </div>
   </div>
 </section>
@@ -204,48 +204,48 @@ footer strong{color:var(--text)}
     <div class="section-label">What people are saying</div>
     <div class="section-title">Real results.<br>Real people.</div>
     <div class="test-grid">
-      <div class="test-card"><div class="test-stars">★★★★★</div><div class="test-quote">"I was paying $400/mo for Apollo. MapZap gets me fresh local leads for $49 one-time. I feel like an idiot for not finding this sooner."</div><div class="test-name">Ryan Kowalski</div><div class="test-role">Cold Outreach Agency Owner, Chicago</div></div>
-      <div class="test-card"><div class="test-stars">★★★★★</div><div class="test-quote">"Pulled a list of restaurant leads in Miami in under a minute. Called 50 of them that afternoon. Closed 3 clients that week. Best $49 I've ever spent."</div><div class="test-name">Darius Fleming</div><div class="test-role">Freelance Marketing Consultant, Miami</div></div>
+      <div class="test-card"><div class="test-stars">★★★★★</div><div class="test-quote">"I was paying $400/mo for Apollo. MapZap gets me fresh local leads for $49/month unlimited. I feel like an idiot for not finding this sooner."</div><div class="test-name">Ryan Kowalski</div><div class="test-role">Cold Outreach Agency Owner, Chicago</div></div>
+      <div class="test-card"><div class="test-stars">★★★★★</div><div class="test-quote">"Pulled a list of restaurant leads in Miami in under a minute. Called 50 of them that afternoon. Closed 3 clients that week."</div><div class="test-name">Darius Fleming</div><div class="test-role">Freelance Marketing Consultant, Miami</div></div>
       <div class="test-card"><div class="test-stars">★★★★★</div><div class="test-quote">"I needed a list of every gym in Dallas for a client pitch. MapZap had it ready in 60 seconds. The client was impressed I moved so fast."</div><div class="test-name">Priya Nair</div><div class="test-role">SaaS Sales Rep, Dallas</div></div>
     </div>
   </div>
 </section>
 <section class="section" id="pricing">
   <div class="section-label">Pricing</div>
-  <div class="section-title" style="text-align:center;margin-bottom:48px">Two options.<br>Zero subscriptions.</div>
+  <div class="section-title" style="text-align:center;margin-bottom:48px">Two plans.<br>Unlimited searches.</div>
   <div class="pricing-grid">
     <div class="pricing-card">
-      <div class="pricing-badge">STARTER</div>
+      <div class="pricing-badge">BASIC</div>
       <div class="price-num">$49</div>
-      <div class="price-period">one-time per search</div>
-      <div class="price-desc">Everything you need to build a targeted lead list fast.</div>
+      <div class="price-period">per month — cancel anytime</div>
+      <div class="price-desc">Everything you need to build unlimited targeted lead lists every month.</div>
       <div class="price-features">
-        <div class="price-feature">Hundreds of local business leads</div>
+        <div class="price-feature">Unlimited searches per month</div>
+        <div class="price-feature">100+ local business leads per search</div>
         <div class="price-feature">Business name, phone, address, website</div>
         <div class="price-feature">Any business type, any US city</div>
         <div class="price-feature">Instant CSV download</div>
         <div class="price-feature">Powered by live Google Maps data</div>
-        <div class="price-feature">No account required</div>
-        <div class="price-feature">No monthly fees, ever</div>
+        <div class="price-feature">Cancel anytime</div>
       </div>
-      <a href="https://buy.stripe.com/6oUdR9aHF9qIdYSbHU2Ry09" class="buy-btn">GET LEADS — $49 →</a>
+      <a href="https://buy.stripe.com/00w3cvaHF32k7Au5jw2Ry0b" class="buy-btn">SUBSCRIBE — $49/MO →</a>
       <p class="price-note">Secure payment via Stripe. Instant access.</p>
     </div>
     <div class="pricing-card pro">
       <div class="pricing-badge pro-badge">PRO — WITH EMAILS</div>
       <div class="price-num">$99</div>
-      <div class="price-period">one-time per search</div>
-      <div class="price-desc">Everything in Starter plus verified business emails for cold outreach.</div>
+      <div class="price-period">per month — cancel anytime</div>
+      <div class="price-desc">Everything in Basic plus verified business emails for cold outreach.</div>
       <div class="price-features">
-        <div class="price-feature">Hundreds of local business leads</div>
+        <div class="price-feature">Unlimited searches per month</div>
+        <div class="price-feature">100+ local business leads per search</div>
         <div class="price-feature">Business name, phone, address, website</div>
         <div class="price-feature">Any business type, any US city</div>
         <div class="price-feature">Instant CSV download</div>
         <div class="price-feature">Powered by live Google Maps data</div>
-        <div class="price-feature">No account required</div>
         <div class="price-feature" style="color:var(--accent2);font-weight:600">✦ Business emails included where available</div>
       </div>
-      <a href="https://buy.stripe.com/6oUaEX1758mE5smbHU2Ry0a" class="buy-btn pro-btn">GET LEADS + EMAILS — $99 →</a>
+      <a href="https://buy.stripe.com/cNi14n7vt0Uc1c65jw2Ry0c" class="buy-btn pro-btn">SUBSCRIBE — $99/MO →</a>
       <p class="price-note">Emails found for ~30 to 40% of results on average.</p>
     </div>
   </div>
@@ -255,12 +255,12 @@ footer strong{color:var(--text)}
     <div class="section-label">FAQ</div>
     <div class="section-title" style="margin-bottom:48px">Questions.</div>
     <div class="faq-list">
-      <div class="faq-item"><div class="faq-q">How many leads do I actually get?</div><div class="faq-a">Hundreds of leads per search depending on how many businesses exist in that city and category.</div></div>
+      <div class="faq-item"><div class="faq-q">How many leads do I actually get?</div><div class="faq-a">100+ leads per search depending on how many businesses exist in that city and category. With an active subscription you can run unlimited searches per month.</div></div>
       <div class="faq-item"><div class="faq-q">What data is included in the CSV?</div><div class="faq-a">Business name, phone number, full street address, and website URL. The Pro tier also includes business emails where they can be found.</div></div>
       <div class="faq-item"><div class="faq-q">How many emails will I get in the Pro tier?</div><div class="faq-a">Emails are found for roughly 30 to 40% of results on average. You still get the full leads regardless.</div></div>
       <div class="faq-item"><div class="faq-q">Is the data fresh?</div><div class="faq-a">Yes. Every search pulls live data directly from Google Maps in real time.</div></div>
-      <div class="faq-item"><div class="faq-q">Do I need to create an account?</div><div class="faq-a">No. Pay via Stripe, get instant access, download your CSV. No login required.</div></div>
-      <div class="faq-item"><div class="faq-q">Is there a subscription or recurring charge?</div><div class="faq-a">Never. One-time per search. No subscription, no monthly fee.</div></div>
+      <div class="faq-item"><div class="faq-q">Can I cancel anytime?</div><div class="faq-a">Yes. Cancel anytime directly from your Stripe billing portal. No questions asked.</div></div>
+      <div class="faq-item"><div class="faq-q">How does billing work?</div><div class="faq-a">You are billed monthly via Stripe. Your subscription stays active until you cancel. Access continues until the end of your billing period.</div></div>
     </div>
   </div>
 </section>
@@ -273,7 +273,7 @@ footer strong{color:var(--text)}
   </div>
 </section>
 <footer>
-  <strong>MapZap</strong> — Local business leads, instant CSV delivery.<br>
+  <strong>MapZap</strong> — Local business leads, unlimited monthly searches.<br>
   <span style="margin-top:8px;display:block">Questions? Email <a href="mailto:hello@mapzap.org" style="color:var(--accent)">hello@mapzap.org</a></span>
 </footer>
 <script>
@@ -320,6 +320,12 @@ async function runPreview() {
     statusMsg.style.display = 'none';
     localStorage.setItem('mz_type', bizType);
     localStorage.setItem('mz_city', bizCity);
+    const basicBtn = document.getElementById('basicBtn');
+    const proBtn = document.getElementById('proBtn');
+    const typeParam = encodeURIComponent(bizType);
+    const cityParam = encodeURIComponent(bizCity);
+    basicBtn.href = `https://buy.stripe.com/00w3cvaHF32k7Au5jw2Ry0b`;
+    proBtn.href = `https://buy.stripe.com/cNi14n7vt0Uc1c65jw2Ry0c`;
   } catch(err) {
     statusMsg.style.color = '#FF6B6B';
     statusMsg.textContent = 'Error: ' + err.message;
@@ -340,19 +346,6 @@ document.querySelectorAll('.faq-q').forEach(q => {
     if (!wasOpen) item.classList.add('open');
   });
 });
-const saved = localStorage.getItem('mz_end');
-const target = saved ? new Date(saved) : (() => { const e = new Date(Date.now()+48*60*60*1000); localStorage.setItem('mz_end', e.toISOString()); return e; })();
-function tick() {
-  const diff = target - new Date();
-  const els = document.querySelectorAll('.countdown-timer');
-  if (diff <= 0) { els.forEach(el => el.textContent = 'EXPIRED'); return; }
-  const h = Math.floor(diff/3600000);
-  const m = Math.floor((diff%3600000)/60000);
-  const s = Math.floor((diff%60000)/1000);
-  els.forEach(el => el.textContent = h+'h '+m+'m '+s+'s');
-  setTimeout(tick, 1000);
-}
-tick();
 </script>
 </body>
 </html>
