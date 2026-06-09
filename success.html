@@ -36,9 +36,9 @@ input::placeholder{color:var(--muted)}
 </head>
 <body>
 <div class="card" id="card">
-  <div class="badge" id="badge">✓ PAYMENT CONFIRMED</div>
+  <div class="badge" id="badge">✓ SUBSCRIPTION ACTIVE</div>
   <h1 id="heading">Get Your<br><span style="color:var(--accent)">Leads Now</span></h1>
-  <p class="sub" id="sub">Enter what you're looking for and where. We'll pull up to 100 leads from Google Maps and deliver your CSV instantly.</p>
+  <p class="sub" id="sub">Enter what you're looking for and where. We'll pull 100+ leads from Google Maps and deliver your CSV instantly. Unlimited searches included.</p>
   <div class="form-group">
     <label>Business Type</label>
     <input type="text" id="businessType" placeholder="e.g. restaurants, dentists, gyms, law firms" />
@@ -61,7 +61,6 @@ const tier = params.get('tier') || 'basic';
 const prefillType = params.get('type');
 const prefillCity = params.get('city');
 
-// Pre-fill from URL params or localStorage
 const savedType = prefillType ? decodeURIComponent(prefillType) : localStorage.getItem('mz_type');
 const savedCity = prefillCity ? decodeURIComponent(prefillCity) : localStorage.getItem('mz_city');
 if(savedType) document.getElementById('businessType').value = savedType;
@@ -70,18 +69,18 @@ if(savedCity) document.getElementById('city').value = savedCity;
 if(tier === 'pro') {
   document.getElementById('card').classList.add('pro');
   document.getElementById('badge').className = 'badge pro';
-  document.getElementById('badge').textContent = '✓ PRO PAYMENT CONFIRMED';
+  document.getElementById('badge').textContent = '✓ PRO SUBSCRIPTION ACTIVE';
   document.getElementById('heading').innerHTML = 'Get Your Leads<br><span style="color:var(--accent2)">+ Emails Now</span>';
-  document.getElementById('sub').textContent = 'Enter what you\'re looking for and where. We\'ll pull up to 100 leads from Google Maps, find business emails where available, and deliver your CSV instantly.';
+  document.getElementById('sub').textContent = 'Enter what you\'re looking for and where. We\'ll pull 100+ leads from Google Maps, find business emails where available, and deliver your CSV instantly. Unlimited searches included.';
   document.getElementById('scrapeBtn').classList.add('pro');
   document.getElementById('btnText').textContent = 'DOWNLOAD LEADS + EMAILS →';
-  document.getElementById('note').textContent = 'Emails found for roughly 30 to 40% of results on average. You still get the full 100 leads regardless.';
+  document.getElementById('note').textContent = 'Emails found for roughly 30 to 40% of results on average. You still get the full 100+ leads regardless.';
 }
 
 if(!sessionId) {
   document.getElementById('status').className = 'status error';
   document.getElementById('status').style.display = 'block';
-  document.getElementById('status').textContent = 'No valid payment session found. Please complete payment first.';
+  document.getElementById('status').textContent = 'No valid subscription session found. Please subscribe first.';
   document.getElementById('scrapeBtn').disabled = true;
 }
 
@@ -126,13 +125,13 @@ async function startScrape() {
     a.click();
     a.remove();
     window.URL.revokeObjectURL(url);
-    // Clear localStorage after successful download
     localStorage.removeItem('mz_type');
     localStorage.removeItem('mz_city');
     status.className = 'status success';
-    status.textContent = '✓ Your CSV is downloading now. Check your downloads folder.';
-    btnText.textContent = 'DOWNLOADED ✓';
+    status.textContent = '✓ Your CSV is downloading now. Check your downloads folder. Run another search anytime.';
+    btnText.textContent = 'DOWNLOAD ANOTHER SEARCH →';
     spinner.style.display = 'none';
+    btn.disabled = false;
   } catch(err) {
     status.className = 'status error';
     status.textContent = `Error: ${err.message}. Email hello@mapzap.org for support.`;
