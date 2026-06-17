@@ -10,6 +10,7 @@ import stripe
 import dns.resolver
 import json
 from urllib.parse import urljoin, urlparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -230,18 +231,40 @@ def scrape():
         if not places:
             return jsonify({"error": "No results found for that search"}), 404
 
-        output = io.StringIO()
-        writer = csv.writer(output)
-        writer.writerow(["Business Name", "Address", "Phone", "Website", "Email", "City", "Type"])
-        for p in places:
+        def build_row(p):
             name = p.get("displayName", {}).get("text", "")
             address = p.get("formattedAddress", "")
             phone = p.get("nationalPhoneNumber", "")
             website = p.get("websiteUri", "")
             domain = get_domain(website)
             email = scrape_emails(website, business_domain=domain) or "N/A"
-            writer.writerow([name, address, phone, website, email, city, business_type])
-            time.sleep(0.3)
+            return [name, address, phone, website, email, city, business_type]
+
+        rows = [None] * len(places)
+        with ThreadPoolExecutor(max_workers=20) as executor:
+            future_to_idx = {executor.submit(build_row, p): i for i, p in enumerate(places)}
+            for future in as_completed(future_to_idx):
+                idx = future_to_idx[future]
+                try:
+                    rows[idx] = future.result()
+                except Exception:
+                    p = places[idx]
+                    rows[idx] = [
+                        p.get("displayName", {}).get("text", ""),
+                        p.get("formattedAddress", ""),
+                        p.get("nationalPhoneNumber", ""),
+                        p.get("websiteUri", ""),
+                        "N/A",
+                        city,
+                        business_type
+                    ]
+
+        output = io.StringIO()
+        writer = csv.writer(output)
+        writer.writerow(["Business Name", "Address", "Phone", "Website", "Email", "City", "Type"])
+        for row in rows:
+            if row:
+                writer.writerow(row)
 
         output.seek(0)
         filename = f"{business_type.replace(' ', '_')}_{city.replace(', ', '_').replace(' ', '_')}_leads.csv"
