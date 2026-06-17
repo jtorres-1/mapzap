@@ -11,18 +11,17 @@
 body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
 .card{background:var(--bg2);border:1px solid var(--border);padding:60px;max-width:600px;width:100%;text-align:center;position:relative;overflow:hidden}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent)}
-.card.pro::before{background:var(--accent2)}
 .badge{display:inline-block;background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.2);color:var(--accent);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:8px 16px;margin-bottom:24px}
-.badge.pro{background:rgba(255,214,0,0.1);border-color:rgba(255,214,0,0.3);color:var(--accent2)}
 h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:48px;line-height:1;margin-bottom:16px}
-.sub{font-size:16px;color:var(--muted);margin-bottom:40px;line-height:1.6}
+.sub{font-size:16px;color:var(--muted);margin-bottom:16px;line-height:1.6}
+.coverage-note{background:var(--bg3);border:1px solid var(--border);padding:14px 16px;margin-bottom:32px;font-size:12.5px;color:var(--muted);line-height:1.6;text-align:left}
+.coverage-note strong{color:var(--text)}
 .form-group{margin-bottom:16px;text-align:left}
 label{display:block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
 input{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:'Barlow',sans-serif;font-size:16px;padding:14px 16px;outline:none;transition:border-color 0.2s}
 input:focus{border-color:var(--accent)}
 input::placeholder{color:var(--muted)}
 .btn{width:100%;background:var(--accent);color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;letter-spacing:2px;padding:20px;border:none;cursor:pointer;margin-top:8px;transition:opacity 0.2s;display:flex;align-items:center;justify-content:center;gap:12px}
-.btn.pro{background:var(--accent2)}
 .btn:hover{opacity:0.85}
 .btn:disabled{opacity:0.5;cursor:not-allowed}
 .status{margin-top:20px;padding:16px;font-size:14px;display:none}
@@ -38,7 +37,8 @@ input::placeholder{color:var(--muted)}
 <div class="card" id="card">
   <div class="badge" id="badge">✓ SUBSCRIPTION ACTIVE</div>
   <h1 id="heading">Get Your<br><span style="color:var(--accent)">Leads Now</span></h1>
-  <p class="sub" id="sub">Enter what you're looking for and where. We'll pull 100+ leads from Google Maps and deliver your CSV instantly. Unlimited searches included.</p>
+  <p class="sub" id="sub">Enter what you're looking for and where. We'll pull 100+ leads from Google Maps, find emails where available, and deliver your CSV instantly. Unlimited searches included.</p>
+  <div class="coverage-note"><strong>Coverage note:</strong> US businesses only. Emails are found for roughly 30 to 40% of results on average, since not every business publishes one. You still get the full lead list either way.</div>
   <div class="form-group">
     <label>Business Type</label>
     <input type="text" id="businessType" placeholder="e.g. restaurants, dentists, gyms, law firms" />
@@ -57,7 +57,6 @@ input::placeholder{color:var(--muted)}
 <script>
 const params = new URLSearchParams(window.location.search);
 const sessionId = params.get('session_id');
-const tier = params.get('tier') || 'basic';
 const prefillType = params.get('type');
 const prefillCity = params.get('city');
 
@@ -65,17 +64,6 @@ const savedType = prefillType ? decodeURIComponent(prefillType) : localStorage.g
 const savedCity = prefillCity ? decodeURIComponent(prefillCity) : localStorage.getItem('mz_city');
 if(savedType) document.getElementById('businessType').value = savedType;
 if(savedCity) document.getElementById('city').value = savedCity;
-
-if(tier === 'pro') {
-  document.getElementById('card').classList.add('pro');
-  document.getElementById('badge').className = 'badge pro';
-  document.getElementById('badge').textContent = '✓ PRO SUBSCRIPTION ACTIVE';
-  document.getElementById('heading').innerHTML = 'Get Your Leads<br><span style="color:var(--accent2)">+ Emails Now</span>';
-  document.getElementById('sub').textContent = 'Enter what you\'re looking for and where. We\'ll pull 100+ leads from Google Maps, find business emails where available, and deliver your CSV instantly. Unlimited searches included.';
-  document.getElementById('scrapeBtn').classList.add('pro');
-  document.getElementById('btnText').textContent = 'DOWNLOAD LEADS + EMAILS →';
-  document.getElementById('note').textContent = 'Emails found for roughly 30 to 40% of results on average. You still get the full 100+ leads regardless.';
-}
 
 if(!sessionId) {
   document.getElementById('status').className = 'status error';
@@ -99,18 +87,13 @@ async function startScrape() {
   btn.disabled = true;
   spinner.style.display = 'block';
   status.className = 'status loading';
-  if(tier === 'pro') {
-    btnText.textContent = 'FINDING EMAILS...';
-    status.textContent = 'Pulling live data from Google Maps and finding business emails. This takes 1 to 2 minutes...';
-  } else {
-    btnText.textContent = 'SCRAPING GOOGLE MAPS...';
-    status.textContent = 'Pulling live data from Google Maps. This takes 15 to 30 seconds...';
-  }
+  btnText.textContent = 'FINDING LEADS + EMAILS...';
+  status.textContent = 'Pulling live data from Google Maps and finding business emails. This takes 1 to 2 minutes...';
   try {
     const response = await fetch('https://api.mapzap.org/api/scrape', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({session_id: sessionId, business_type: businessType, city: city, tier: tier})
+      body: JSON.stringify({session_id: sessionId, business_type: businessType, city: city})
     });
     if(!response.ok) {
       const err = await response.json();
