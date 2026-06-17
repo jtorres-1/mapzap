@@ -164,34 +164,26 @@ def search_places(query, city, max_results=100):
 def validate_subscription(session_id):
     """
     Validates that a Stripe checkout session completed and
-    the resulting subscription is active.
-    Returns (valid: bool, tier: str, error: str)
+    the resulting subscription is active. Single tier now,
+    every active subscriber gets full leads + emails.
+    Returns (valid: bool, error: str)
     """
     try:
         session = stripe.checkout.Session.retrieve(session_id, expand=["subscription"])
         if session.payment_status != "paid":
-            return False, None, "Payment not completed"
+            return False, "Payment not completed"
         subscription = session.subscription
         if not subscription:
-            return False, None, "No subscription found"
+            return False, "No subscription found"
         if isinstance(subscription, str):
             subscription = stripe.Subscription.retrieve(subscription)
         if subscription.status not in ("active", "trialing"):
-            return False, None, "Subscription is not active"
-        # Determine tier from price amount
-        
-        tier = "basic"
-        try:
-            amount = subscription.items.data[0].price.unit_amount
-            if amount >= 9900:
-                tier = "pro"
-        except:
-            tier = "basic"
-        return True, tier, None
+            return False, "Subscription is not active"
+        return True, None
     except stripe.error.InvalidRequestError:
-        return False, None, "Invalid session ID"
+        return False, "Invalid session ID"
     except Exception as e:
-        return False, None, str(e)
+        return False, str(e)
 
 # =========================
 # ROUTES
@@ -225,22 +217,13 @@ def scrape():
     session_id = data.get("session_id")
     business_type = data.get("business_type", "").strip()
     city = data.get("city", "").strip()
-    tier_override = data.get("tier", "").strip().lower()
 
     if not session_id or not business_type or not city:
         return jsonify({"error": "Missing required fields"}), 400
 
-    valid, tier, error = validate_subscription(session_id)
+    valid, error = validate_subscription(session_id)
     if not valid:
         return jsonify({"error": error or "Invalid or inactive subscription"}), 403
-
-    # Allow frontend tier override only downward (basic can't become pro)
-    if tier_override == "pro" and tier == "pro":
-        tier = "pro"
-    elif tier == "pro":
-        tier = "pro"
-    else:
-        tier = "basic"
 
     try:
         places = search_places(business_type, city)
@@ -249,26 +232,16 @@ def scrape():
 
         output = io.StringIO()
         writer = csv.writer(output)
-
-        if tier == "pro":
-            writer.writerow(["Business Name", "Address", "Phone", "Website", "Email", "City", "Type"])
-            for p in places:
-                name = p.get("displayName", {}).get("text", "")
-                address = p.get("formattedAddress", "")
-                phone = p.get("nationalPhoneNumber", "")
-                website = p.get("websiteUri", "")
-                domain = get_domain(website)
-                email = scrape_emails(website, business_domain=domain) or "N/A"
-                writer.writerow([name, address, phone, website, email, city, business_type])
-                time.sleep(0.3)
-        else:
-            writer.writerow(["Business Name", "Address", "Phone", "Website", "City", "Type"])
-            for p in places:
-                name = p.get("displayName", {}).get("text", "")
-                address = p.get("formattedAddress", "")
-                phone = p.get("nationalPhoneNumber", "")
-                website = p.get("websiteUri", "")
-                writer.writerow([name, address, phone, website, city, business_type])
+        writer.writerow(["Business Name", "Address", "Phone", "Website", "Email", "City", "Type"])
+        for p in places:
+            name = p.get("displayName", {}).get("text", "")
+            address = p.get("formattedAddress", "")
+            phone = p.get("nationalPhoneNumber", "")
+            website = p.get("websiteUri", "")
+            domain = get_domain(website)
+            email = scrape_emails(website, business_domain=domain) or "N/A"
+            writer.writerow([name, address, phone, website, email, city, business_type])
+            time.sleep(0.3)
 
         output.seek(0)
         filename = f"{business_type.replace(' ', '_')}_{city.replace(', ', '_').replace(' ', '_')}_leads.csv"
